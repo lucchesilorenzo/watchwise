@@ -6,12 +6,18 @@
 
 {% block content %}
 
-    <div class="container my-5 text-center" style="max-width: 580px;">
-        <h1>Gestore di film e serie TV</h1>
-        <p class="lead">Interagite con i pulsanti sottostanti per visualizzare film o serie TV
-        </p>
-        <button type="button" class="btn btn-primary">Film</button>
-        <button type="button" class="btn btn-secondary">Serie TV</button>
-    </div>
+<div class="container my-5 text-center" style="max-width: 580px;">
+    <h1>Media Record</h1>
+    <p class="lead">Click the buttons down below to check how many records are stored in the database</p>
+</div>
+
+<div class="form-outline" data-mdb-input-init>
+    <input type="search" id="search-bar" class="form-control" placeholder="Type query" aria-label="Search" style="width: 50%; margin: 0 auto;">
+</div>
+
+<div class="container my-5 text-center" style="max-width: 580px;">
+    <a href="{% url 'movies' %}" type="button" class="btn btn-primary">Movies</a>
+    <a href="{% url 'tv_shows' %}" type="button" class="btn btn-secondary">TV Shows</a>
+</div>
 
 {% endblock %}

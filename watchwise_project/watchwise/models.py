@@ -18,5 +18,6 @@ class Media(models.Model):
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     release_year = models.IntegerField()
 
-    def __str__(self):
+    def __str__(self): 
         return self.title
+    
