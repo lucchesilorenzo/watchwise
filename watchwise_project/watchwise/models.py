@@ -6,7 +6,7 @@ class Genre(models.Model):
     def __str__(self):
         return self.genre
 
-class MediaType(models.Model):
+class Type(models.Model):
     type = models.CharField(max_length=10)
 
     def __str__(self):
@@ -14,7 +14,7 @@ class MediaType(models.Model):
 
 class Media(models.Model):
     title = models.CharField(max_length=255)
-    media_type = models.ForeignKey(MediaType, on_delete=models.CASCADE)
+    media_type = models.ForeignKey(Type, on_delete=models.CASCADE)
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     release_year = models.IntegerField()
 
