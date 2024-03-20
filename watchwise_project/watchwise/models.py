@@ -1,10 +1,22 @@
 from django.db import models
 
+class Genre(models.Model):
+    genre = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.genre
+
+class MediaType(models.Model):
+    type = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.type
+
 class Media(models.Model):
     title = models.CharField(max_length=255)
-    description = models.TextField()
-    release_date = models.DateField()
-    genre = models.CharField(max_length=100)
+    media_type = models.ForeignKey(MediaType, on_delete=models.CASCADE)
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
+    release_year = models.IntegerField()
 
     def __str__(self):
         return self.title
