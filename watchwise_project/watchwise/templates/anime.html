@@ -1,0 +1,35 @@
+{% extends 'common.html' %}
+
+{% load static %} 
+
+{% block title %}Anime{% endblock %} 
+
+{% block content %}
+<div class="container my-5">
+  <h1 class="mb-4">List of Anime</h1>
+  {% if anime %}
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Genre</th>
+        <th scope="col">Year of Release</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for a in anime %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ a.title }}</td>
+        <td>{{ a.genre }}</td>
+        <td>{{ a.release_year }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>No records found.</p>
+  {% endif %}
+</div>
+{% endblock %}

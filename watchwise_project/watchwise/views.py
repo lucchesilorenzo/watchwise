@@ -8,8 +8,7 @@ def watchwise(request):
     return HttpResponse(template.render(context=context))
 
 def movies(request):
-    movie_type = Type.objects.get(type='Movie')
-    movies = Media.objects.filter(media_type=movie_type)
+    movies = Media.objects.filter(media_type=1)
 
     template = loader.get_template('movies.html')
     context = {
@@ -19,8 +18,7 @@ def movies(request):
     return HttpResponse(template.render(context=context))
 
 def tv_shows(request):
-    tv_show_type = Type.objects.get(type='TV Show')
-    tv_shows = Media.objects.filter(media_type=tv_show_type)
+    tv_shows = Media.objects.filter(media_type=2)
 
     template = loader.get_template('tv_shows.html')
     context = {
@@ -28,3 +26,14 @@ def tv_shows(request):
     }
 
     return HttpResponse(template.render(context=context))
+
+def anime(request):
+    anime = Media.objects.filter(media_type=3)
+
+    template = loader.get_template('anime.html')
+    context = {
+        'anime': anime,
+    }
+
+    return HttpResponse(template.render(context=context))
+
