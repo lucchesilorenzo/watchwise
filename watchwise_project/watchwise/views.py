@@ -11,7 +11,6 @@ def movies(request):
     }
     return render(request, 'movies.html', context)
 
-
 def tv_shows(request):
     tv_shows = Media.objects.filter(media_type=2)
     context = {
