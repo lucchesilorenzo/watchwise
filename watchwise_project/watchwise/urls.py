@@ -3,6 +3,6 @@ from . import views
 
 urlpatterns = [
     path('', views.watchwise, name='homepage'),
-    path('movies', views.movies, name='movies'),
-    path('tv_shows', views.tv_shows, name='tv_shows'),
+    path('movie_list', views.movie_list, name='movie_list'),
+    path('tv_show_list', views.tv_show_list, name='tv_show_list'),
 ]
