@@ -5,5 +5,4 @@ urlpatterns = [
     path('', views.watchwise, name='homepage'),
     path('movies', views.movies, name='movies'),
     path('tv_shows', views.tv_shows, name='tv_shows'),
-    path('anime', views.anime, name='anime'),
 ]

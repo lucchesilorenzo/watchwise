@@ -17,10 +17,3 @@ def tv_shows(request):
         'tv_shows': tv_shows,
     }
     return render(request, 'tv_shows.html', context)
-
-def anime(request):
-    anime = Media.objects.filter(media_type=3)
-    context = {
-        'anime': anime,
-    }
-    return render(request, 'anime.html', context)

@@ -1,24 +1,12 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load static %} {% block title %}WatchWise{% endblock %} {% block content %}
 
-{% load static %}
-
-{% block title %}WatchWise{% endblock %}
-
-{% block content %}
-
-<div class="container my-5 text-center" style="max-width: 580px;">
-    <h1>Media Record</h1>
-    <p class="lead">Click the buttons down below to check how many records are stored in the database</p>
+<div class="container my-5 text-center" style="max-width: 580px">
+  <h1>Media Record</h1>
+  <p class="lead">Click the buttons down below to check how many records are stored in the database</p>
 </div>
 
 <div class="form-outline" data-mdb-input-init>
-    <input type="search" id="search-bar" class="form-control" placeholder="Type query" aria-label="Search" style="width: 50%; margin: 0 auto;">
-</div>
-
-<div class="container my-5 text-center" style="max-width: 580px;">
-    <a href="{% url 'movies' %}" type="button" class="btn btn-primary">Movies</a>
-    <a href="{% url 'tv_shows' %}" type="button" class="btn btn-secondary">TV Shows</a>
-    <a href="{% url 'anime' %}" type="button" class="btn btn-success">Anime</a>
+  <input type="search" id="search-bar" class="form-control" placeholder="Type query" aria-label="Search" style="width: 50%; margin: 0 auto" />
 </div>
 
 {% endblock %}
