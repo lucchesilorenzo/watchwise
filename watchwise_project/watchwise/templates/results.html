@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block title %} Results {% endblock %} {% block content %}
+<div class="row">
+  {% for m in data.results %}
+  <div class="card d-flex flex-column" style="width: 18rem">
+    <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}" class="card-img-top fixed-dimension-img" alt="" style="width: 260px; height: 400px; object-fit: cover" loading="lazy" />
+    <div class="card-body d-flex flex-column justify-content-between">
+      {% if type == "movie" %}
+      <h5 class="card-title">{{ m.title }} ({{ m.release_date }})</h5>
+      {% else %}
+      <h5 class="card-title">{{ m.name }} ({{ m.first_air_date }})</h5>
+      {% endif %}
+      <p class="card-text">{{ m.overview|truncatechars:300 }}</p>
+      <p><strong>Original Language:</strong> {{ m.original_language }}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
