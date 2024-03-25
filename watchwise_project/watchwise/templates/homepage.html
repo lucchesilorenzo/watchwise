@@ -1,20 +1,20 @@
-{% extends 'base.html' %} {% load static %} {% block title %}WatchWise{% endblock %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block title %} WatchWise {% endblock %} {% block content %}
 
 <div class="container my-5 text-center" style="max-width: 580px">
   <h1>Media Record</h1>
   <p class="lead">Click the buttons down below to check how many records are stored in the database</p>
 </div>
 
-<form action="{% url 'results' %}" method="get" class="row g-3 justify-content-center">
-  <div class="col-auto">
-    <input type="text" class="form-control" placeholder="Enter Keyword" name="q" onkeypress="return event.keyCode != 13;" />
-  </div>
-  <div class="col-auto">
-    <button type="submit" class="btn btn-primary" name="type" value="movie">Search the Movie</button>
-  </div>
-  <div class="col-auto">
-    <button type="submit" class="btn btn-secondary" name="type" value="tv">Search the TV Show</button>
-  </div>
-</form>
+<div class="container">
+  <form action="{% url 'results' %}" method="get" class="row g-3 justify-content-center align-items-center">
+    <div class="col-md-8">
+      <input type="text" class="form-control" placeholder="Search on WatchWise" name="q" onkeypress="return event.keyCode != 13;" />
+    </div>
+    <div class="btn-group col-md-8 mt-3 d-flex justify-content-center">
+      <button type="submit" class="btn btn-primary" name="type" value="movie">Search Movie</button>
+      <button type="submit" class="btn btn-secondary ml-2" name="type" value="tv">Search TV Show</button>
+    </div>
+  </form>
+</div>
 
 {% endblock %}

@@ -2,7 +2,9 @@ from django.contrib import admin
 from .models import Media, Type, Genre, Profile
 
 class MediaAdmin(admin.ModelAdmin):
-    list_display = ("title", "media_type", "genre",)
+    list_display = ('title', 'media_type', 'genre',)
+    search_fields = ('title',)
+    list_filter = ('media_type', 'genre',)
 
 admin.site.register(Media, MediaAdmin)
 admin.site.register(Type)
