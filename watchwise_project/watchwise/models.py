@@ -22,6 +22,7 @@ class Media(models.Model):
     def __str__(self): 
         return self.title
 
+# Modello visto in classe
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birth_date = models.DateField()

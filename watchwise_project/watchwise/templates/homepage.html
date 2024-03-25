@@ -7,7 +7,7 @@
 
 <form action="{% url 'results' %}" method="get" class="row g-3 justify-content-center">
   <div class="col-auto">
-    <input type="text" class="form-control" placeholder="Enter Keyword" name="q" />
+    <input type="text" class="form-control" placeholder="Enter Keyword" name="q" onkeypress="return event.keyCode != 13;" />
   </div>
   <div class="col-auto">
     <button type="submit" class="btn btn-primary" name="type" value="movie">Search the Movie</button>
