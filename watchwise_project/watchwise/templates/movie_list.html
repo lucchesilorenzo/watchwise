@@ -1,5 +1,12 @@
 {% extends 'base.html' %} {% load static %} {% block title %}Movies{% endblock %} {% block content %}
 <div class="container my-5">
+  {% if messages %}
+  <div class="alert alert-success">
+    {% for message in messages %}
+    <strong>{{ message }}</strong>
+    {% endfor %}
+  </div>
+  {% endif %}
   <h1 class="mb-4">List of Movies</h1>
   {% if movies %}
   <table class="table">
@@ -7,8 +14,13 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Title</th>
-        <th scope="col">Genre</th>
-        <th scope="col">Year of Release</th>
+        <th scope="col">Year</th>
+        <th scope="col">Description</th>
+        <th scope="col">Original Language</th>
+        <th scope="col">Status</th>
+        <th scope="col">Rating</th>
+        <th scope="col">Comment</th>
+        <th scope="col">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -16,10 +28,18 @@
       <tr>
         <th scope="row">{{ forloop.counter }}</th>
         <td>{{ movie.title }}</td>
-        <td>{{ movie.genre }}</td>
-        <td>{{ movie.release_year }}</td>
+        <td>{{ movie.release_date }}</td>
+        <td>{{ movie.overview }}</td>
+        <td>{{ movie.original_language }}</td>
+        <td>{{ movie.get_status_display }}</td>
+        <td>{{ movie.rating }}</td>
+        <td>{{ movie.comment }}</td>
+        <td>
+          <a href="{% url 'delete_media' 'movie' movie.movie_id %}">Delete</a>
+          <a href="{% url 'update_media' 'movie' movie.movie_id %}">Update</a>
+        </td>
+        {% endfor %}
       </tr>
-      {% endfor %}
     </tbody>
   </table>
   {% else %}

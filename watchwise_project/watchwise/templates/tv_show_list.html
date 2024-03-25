@@ -1,11 +1,12 @@
-{% extends 'base.html' %}
-
-{% load static %}
- 
-{% block title %}TV Shows{% endblock %} 
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block title %}TV Shows{% endblock %} {% block content %}
 <div class="container my-5">
+  {% if messages %}
+  <div class="alert alert-success">
+    {% for message in messages %}
+    <strong>{{ message }}</strong>
+    {% endfor %}
+  </div>
+  {% endif %}
   <h1 class="mb-4">List of TV Shows</h1>
   {% if tv_shows %}
   <table class="table">
@@ -13,8 +14,13 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Title</th>
-        <th scope="col">Genre</th>
-        <th scope="col">Year of Release</th>
+        <th scope="col">Year</th>
+        <th scope="col">Description</th>
+        <th scope="col">Original Language</th>
+        <th scope="col">Status</th>
+        <th scope="col">Rating</th>
+        <th scope="col">Comment</th>
+        <th scope="col">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -22,8 +28,16 @@
       <tr>
         <th scope="row">{{ forloop.counter }}</th>
         <td>{{ tv_show.title }}</td>
-        <td>{{ tv_show.genre }}</td>
-        <td>{{ tv_show.release_year }}</td>
+        <td>{{ tv_show.first_air_date }}</td>
+        <td>{{ tv_show.overview }}</td>
+        <td>{{ tv_show.original_language }}</td>
+        <td>{{ tv_show.get_status_display }}</td>
+        <td>{{ tv_show.rating }}</td>
+        <td>{{ tv_show.comment }}</td>
+        <td>
+          <a href="{% url 'delete_media' 'tv' tv_show.TV_id %}">Delete</a>
+          <a href="{% url 'update_media' 'tv' tv_show.TV_id %}">Update</a>
+        </td>
       </tr>
       {% endfor %}
     </tbody>

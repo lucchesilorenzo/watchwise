@@ -11,11 +11,31 @@
           {% else %}
           <h5 class="card-title">{{ m.name }} ({{ m.first_air_date }})</h5>
           {% endif %}
-          <p class="card-text">{% if m.overview|length > 100 %}{{ m.overview|truncatechars:200 }}{% else %}{{ m.overview }}{% endif %}</p>
+          <p class="card-text">{{ m.overview|truncatechars:300 }}</p>
           <p><strong>Original Language:</strong> {{ m.original_language }}</p>
-          {% if m.overview|length <= 100 %}
-          <div style="flex-grow: 1"></div>
-          {% endif %}
+          <form method="post" action="{% url 'save_media' %}" class="save-media-form mt-auto">
+            {% csrf_token %}
+            <select name="status" class="form-select mb-2">
+              <option value="already_seen">Already Seen</option>
+              <option value="wishlist">Wishlist</option>
+              <option value="not_interested">Not Wanted</option>
+            </select>
+            <select name="rating" class="form-select mb-2">
+              <option value="1">1 Star</option>
+              <option value="2">2 Stars</option>
+              <option value="3">3 Stars</option>
+              <option value="4">4 Stars</option>
+              <option value="5">5 Stars</option>
+            </select>
+            <textarea name="comment" class="form-control mb-2"></textarea>
+            <input type="hidden" name="movie_id" value="{{ m.id }}" />
+            <input type="hidden" name="type" value="{{ type }}" />
+            <input type="hidden" name="title" value="{% if type == 'movie' %}{{ m.title }}{% else %}{{ m.name }}{% endif %}" />
+            <input type="hidden" name="date" value="{% if type == 'movie' %}{{ m.release_date }}{% else %}{{ m.first_air_date }}{% endif %}" />
+            <input type="hidden" name="overview" value="{{ m.overview }}" />
+            <input type="hidden" name="original_language" value="{{ m.original_language }}" />
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
         </div>
       </div>
     </div>
