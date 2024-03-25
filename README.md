@@ -42,14 +42,14 @@ pip install pyparsing pydot
 
 **Step 5**: Download PyGraphViz packages for Windows
 
-```bash
-Download the latest Windows packages from [here](https://graphviz.org/download/)
+Download the latest Windows packages from
+[here](https://graphviz.org/download)
 
 1. Extract the ZIP archive
 2. Copy all the files from the bin folder and paste them into watchwise_prova\.venv\Scripts
 
-A list of commands for graph models [here](https://django-extensions.readthedocs.io/en/latest/graph_models.html)
-```
+A list of commands for graph models
+[here](https://django-extensions.readthedocs.io/en/latest/graph_models.html)
 
 **Step 6**: Migrate the database and create a superuser
 
