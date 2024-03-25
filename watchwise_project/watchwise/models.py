@@ -1,17 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Genre(models.Model):
     genre = models.CharField(max_length=10)
 
     def __str__(self):
         return self.genre
 
+
 class Type(models.Model):
     type = models.CharField(max_length=10)
 
     def __str__(self):
         return self.type
+
 
 class Media(models.Model):
     title = models.CharField(max_length=255)
@@ -21,6 +24,7 @@ class Media(models.Model):
 
     def __str__(self): 
         return self.title
+
 
 # Modello visto in classe
 class Profile(models.Model):
