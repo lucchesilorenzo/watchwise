@@ -1,4 +1,4 @@
-from .models import Movie, TV_Shows
+from .models import Movie, TV_Shows, Media
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 import requests
@@ -136,3 +136,28 @@ def save_media(request):
                 tv_show.comment = comment
                 tv_show.save()
         return redirect('results')
+
+
+
+# New - NOT WORKING
+def inserimento(request):
+    if request.POST:
+        print(request.POST)
+
+        title = request.POST['title']
+        release_year = request.POST['release_year']
+
+        q = Media(title=title, release_year=release_year)
+        q.save()
+
+        context = {
+            'title': title,
+            'release_year': release_year,
+            'message': 'Salvato con successo',
+        }
+
+    else:
+        context = {
+            'message': '',
+        }
+    return render(request, 'inserimento.html', context)
