@@ -1,23 +1,34 @@
 from django.contrib import admin
-from .models import Genre, Type, Media, Profile
+from .models import Profile, Movie, TVShow
+
+@admin.register(Movie)
+class MovieAdmin(admin.ModelAdmin):
+    list_display = (
+        'movie_id',
+        'title',
+        'release_date',
+        'overview',
+        'original_language',
+        'status',
+        'rating',
+        'comment',
+    )
 
 
-@admin.register(Genre)
-class GenreAdmin(admin.ModelAdmin):
-    list_display = ('id', 'genre')
+@admin.register(TVShow)
+class TVShowAdmin(admin.ModelAdmin):
+    list_display = (
+        'TV_id',
+        'title',
+        'first_air_date',
+        'overview',
+        'original_language',
+        'status',
+        'rating',
+        'comment',
+    )
 
-
-@admin.register(Type)
-class TypeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'type')
-
-
-@admin.register(Media)
-class MediaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'media_type', 'genre', 'release_year')
-    list_filter = ('media_type', 'genre')
-
-
+    
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'birth_date')
