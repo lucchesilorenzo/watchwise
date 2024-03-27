@@ -2,6 +2,10 @@ from .models import Movie, TVShow
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 import requests
+from .forms import ProfileForm
+from django.http import HttpResponseRedirect
+
+
 
 
 TMDB_API_KEY = "05e5be7a518e07b0cdd93bf0e133083a"
@@ -155,3 +159,24 @@ def save_media(request):
 #             'message': '',
 #         }
 #     return render(request, 'inserimento.html', context)
+
+
+# def get_name(request):
+#     # if this is a POST request we need to process the form data
+#     if request.method == "POST":
+#         # create a form instance and populate it with data from the request:
+#         form = ProfileForm(request.POST)
+#         # check whether it's valid:
+#         if form.is_valid():
+#             title = request.POST['title']
+#             release_year = request.POST['release_year']
+
+#             q = Media(title=title, release_year=release_year)
+#             q.save()
+#             return HttpResponseRedirect("/thanks/")
+
+#     # if a GET (or any other method) we'll create a blank form
+#     else:
+#         form = ProfileForm()
+
+#     return render(request, "name.html", {"form": form})
