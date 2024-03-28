@@ -9,4 +9,5 @@ urlpatterns = [
     path('save_media', views.save_media, name='save_media'),
     path('delete_media/<str:type>/<int:id>', views.delete_media, name='delete_media'),
     path('update_media/<str:type>/<int:id>', views.update_media, name='update_media'),
+    # path('get_name', views.get_name, name='get_name'),
 ]

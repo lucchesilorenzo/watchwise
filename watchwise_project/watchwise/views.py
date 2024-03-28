@@ -1,4 +1,4 @@
-from .models import Movie, TV_Shows, Media
+from .models import Movie, TVShow
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 import requests
@@ -18,7 +18,7 @@ def movie_list(request):
 
 
 def tv_show_list(request):
-    tv_shows = TV_Shows.objects.all()
+    tv_shows = TVShow.objects.all()
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows})
 
 
@@ -52,7 +52,7 @@ def delete_media(request, type, id):
         movie = get_object_or_404(Movie, movie_id=id)
         movie.delete()
     elif type == 'tv':
-        tv_show = get_object_or_404(TV_Shows, TV_id=id)
+        tv_show = get_object_or_404(TVShow, TV_id=id)
         tv_show.delete()
     messages.success(request, "Deleted Successfully")
     return redirect(request.META.get('HTTP_REFERER', 'default_if_none'))
@@ -62,7 +62,7 @@ def update_media(request, id, type):
     if type == 'movie':
         media = get_object_or_404(Movie, movie_id=id)
     elif type == 'tv':
-        media = get_object_or_404(TV_Shows, TV_id=id)
+        media = get_object_or_404(TVShow, TV_id=id)
     else:
         messages.error(request, "Invalid media type")
         return redirect('results')
@@ -117,7 +117,7 @@ def save_media(request):
                 movie.comment = comment
                 movie.save()
         elif type == 'tv':
-            tv_show, created = TV_Shows.objects.get_or_create(
+            tv_show, created = TVShow.objects.get_or_create(
                 TV_id=TV_id, 
                 defaults={
                     'title': title, 
@@ -136,28 +136,3 @@ def save_media(request):
                 tv_show.comment = comment
                 tv_show.save()
         return redirect('results')
-
-
-
-# New - NOT WORKING
-# def inserimento(request):
-#     if request.POST:
-#         print(request.POST)
-
-#         title = request.POST['title']
-#         release_year = request.POST['release_year']
-
-#         q = Media(title=title, release_year=release_year)
-#         q.save()
-
-#         context = {
-#             'title': title,
-#             'release_year': release_year,
-#             'message': 'Salvato con successo',
-#         }
-
-#     else:
-#         context = {
-#             'message': '',
-#         }
-#     return render(request, 'inserimento.html', context)
