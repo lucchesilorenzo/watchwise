@@ -140,24 +140,24 @@ def save_media(request):
 
 
 # New - NOT WORKING
-def inserimento(request):
-    if request.POST:
-        print(request.POST)
+# def inserimento(request):
+#     if request.POST:
+#         print(request.POST)
 
-        title = request.POST['title']
-        release_year = request.POST['release_year']
+#         title = request.POST['title']
+#         release_year = request.POST['release_year']
 
-        q = Media(title=title, release_year=release_year)
-        q.save()
+#         q = Media(title=title, release_year=release_year)
+#         q.save()
 
-        context = {
-            'title': title,
-            'release_year': release_year,
-            'message': 'Salvato con successo',
-        }
+#         context = {
+#             'title': title,
+#             'release_year': release_year,
+#             'message': 'Salvato con successo',
+#         }
 
-    else:
-        context = {
-            'message': '',
-        }
-    return render(request, 'inserimento.html', context)
+#     else:
+#         context = {
+#             'message': '',
+#         }
+#     return render(request, 'inserimento.html', context)
