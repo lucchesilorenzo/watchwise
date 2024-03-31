@@ -54,16 +54,18 @@ Download the latest Windows packages from
 A list of commands for graph models
 [here.](https://django-extensions.readthedocs.io/en/latest/graph_models.html)
 
-**Step 6**: Migrate the database and create a superuser
+### **Step 6**: Migrate the database and create a superuser
 
 ```bash
 cd watchwise_project
+```
 
+```bash
 python manage.py migrate
 python manage.py createsuperuser
 ```
 
-**Step 7**: Run the server
+### **Step 7**: Run the server
 
 ```bash
 python manage.py runserver
