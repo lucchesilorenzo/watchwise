@@ -20,7 +20,7 @@
           <form method="post" action="{% url 'save_media' %}" class="save-media-form mt-auto">
             {% csrf_token %}
             <select name="status" class="form-select mb-2">
-              <option value="already_seen">Already Seen</option>
+              <option value="watched">Watched</option>
               <option value="wishlist">Wishlist</option>
               <option value="not_interested">Not Wanted</option>
             </select>
