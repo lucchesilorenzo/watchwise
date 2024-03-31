@@ -16,6 +16,7 @@ git clone https://github.com/lucchesilorenzo/watchwise_prova.git
 
 ```bash
 cd watchwise_prova
+code .
 ```
 
 ### **Step 3**: Create and activate a virtual environment
@@ -56,6 +57,8 @@ A list of commands for graph models
 **Step 6**: Migrate the database and create a superuser
 
 ```bash
+cd watchwise_project
+
 python manage.py migrate
 python manage.py createsuperuser
 ```
