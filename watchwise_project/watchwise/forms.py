@@ -1,12 +1,13 @@
 from django import forms
-from .models import Profile
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 
-class NameForm(forms.Form):
-    your_name = forms.CharField(label="Your name", max_length=100)
-    your_data = forms.DateField(label="Your Date")
+class RegistrationForm(UserCreationForm):
+    first_name = forms.CharField(max_length=30)
+    last_name = forms.CharField(max_length=30)
+    email = forms.EmailField(max_length=254)
 
-class ProfileForm(forms.ModelForm):
     class Meta:
-        model = Profile
-        fields = ["user", "birth_date",]
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']

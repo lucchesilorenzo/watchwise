@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
     
+    
 STATUS_CHOICES = [
-    ('already_seen', 'Already Seen'),
+    ('watched', 'Watched'),
     ('wishlist', 'Wishlist'),
     ('not_interested', 'Not Interested'),
 ]

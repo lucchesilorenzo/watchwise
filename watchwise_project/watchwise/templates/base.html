@@ -30,6 +30,19 @@
           <span>WatchWise</span>
         </a>
 
+        <!-- User Info and Logout -->
+        <div class="navbar-text ml-auto d-flex align-items-center">
+          <div>
+            {% if user.is_authenticated %}
+            <span class="mr-3 text-dark">Ciao, {{ user.username }}!</span>
+            <a href="{% url 'logout' %}" class="btn btn-outline-light">Logout</a>
+            {% else %}
+            <a href="{% url 'login' %}" class="btn btn-outline-secondary btn-dark">Login</a>
+            <a href="{% url 'signup' %}" class="btn btn-outline-secondary btn-dark ml-2">Signup</a>
+            {% endif %}
+          </div>
+        </div>
+
         <!-- Menu Links -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
@@ -43,6 +56,7 @@
         </div>
       </div>
     </nav>
+
     {% block content %} {% endblock %}
   </body>
 </html>

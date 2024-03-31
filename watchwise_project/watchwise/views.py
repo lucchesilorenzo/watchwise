@@ -1,6 +1,8 @@
 from .models import Movie, TVShow
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth import login
+from .forms import RegistrationForm
 import requests
 
 
@@ -130,3 +132,15 @@ def save_media(request):
                 tv_show.comment = comment
                 tv_show.save()
         return redirect('results')
+    
+
+def signup(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('homepage')
+    else:
+        form = RegistrationForm()
+    return render(request, 'signup.html', {'form': form})
