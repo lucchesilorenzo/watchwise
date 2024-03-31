@@ -4,7 +4,6 @@ from django.contrib import messages
 import requests
 
 
-# Define the API key for The Movie Database
 TMDB_API_KEY = "05e5be7a518e07b0cdd93bf0e133083a"
 
 
@@ -23,13 +22,11 @@ def tv_show_list(request):
 
 
 def results(request):
-    # Handle the search query
     query = request.GET.get('q')
     if query:
         data = requests.get(f"https://api.themoviedb.org/3/search/{request.GET.get('type')}?api_key={TMDB_API_KEY}&language=en-US&page=1&include_adult=false&query={query}")
         data = data.json()
 
-        # Filter out movies/TV shows without an image
         data['results'] = [m for m in data['results'] if m['poster_path'] is not None]
 
         for m in data['results']:
@@ -68,20 +65,17 @@ def update_media(request, id, type):
         return redirect('results')
 
     if request.method == 'POST':
-        # Update the media object
         media.status = request.POST.get('status')
         media.rating = request.POST.get('rating')
         media.comment = request.POST.get('comment')
         media.save()
         messages.success(request, "Updated Successfully")
         
-        # Redirect to the appropriate list page based on the media type
         if type == 'movie':
             return redirect('movie_list')
         elif type == 'tv':
             return redirect('tv_show_list')
     else:
-        # Render the update form
         return render(request, 'update_media.html', {'media': media})
     
         
@@ -92,7 +86,7 @@ def save_media(request):
         TV_id = request.POST.get('TV_id')
         type = request.POST.get('type')
         title = request.POST.get('title')
-        date = int(request.POST.get('date'))  # directly convert to int
+        date = int(request.POST.get('date'))
         overview = request.POST.get('overview')
         original_language = request.POST.get('original_language')
         comment = request.POST.get('comment')

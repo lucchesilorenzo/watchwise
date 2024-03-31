@@ -70,3 +70,5 @@ python manage.py createsuperuser
 ```bash
 python manage.py runserver
 ```
+
+### **Step 8**: Go to http://127.0.0.1:8000/watchwise/
