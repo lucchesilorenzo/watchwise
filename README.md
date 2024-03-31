@@ -6,50 +6,52 @@
 
 Follow these steps to set up the project:
 
-**Step 1**: Clone the project
+### **Step 1**: Clone the project
 
 ```bash
 git clone https://github.com/lucchesilorenzo/watchwise_prova.git
 ```
 
-**Step 2**: Navigate to the directory
+### **Step 2**: Navigate to the directory
 
 ```bash
 cd watchwise_prova
 ```
 
-**Step 3**: Create and activate a virtual environment
+### **Step 3**: Create and activate a virtual environment
 
 ```bash
-# Create
 python -m venv .venv
+```
 
-# Activate for MacOS & Linux
+#### Activate for MacOS & Linux
+
+```bash
 source .venv/bin/activate
+```
 
-# Activate for Windows (Git Bash)
+#### Activate for Windows (Git Bash)
+
+```bash
 source .venv/Scripts/activate
 ```
 
-**Step 4**: Install dependencies
+### **Step 4**: Install dependencies
 
 ```bash
-pip install Django
-pip install requests
-pip install django-extensions
-pip install pyparsing pydot
+pip install -r requirements.txt
 ```
 
-**Step 5**: Download PyGraphViz packages for Windows
+### **Step 5**: Download PyGraphViz packages for Windows
 
 Download the latest Windows packages from
-[here](https://graphviz.org/download)
+[here.](https://graphviz.org/download)
 
 1. Extract the ZIP archive
 2. Copy all the files from the bin folder and paste them into watchwise_prova/.venv/Scripts
 
 A list of commands for graph models
-[here](https://django-extensions.readthedocs.io/en/latest/graph_models.html)
+[here.](https://django-extensions.readthedocs.io/en/latest/graph_models.html)
 
 **Step 6**: Migrate the database and create a superuser
 
