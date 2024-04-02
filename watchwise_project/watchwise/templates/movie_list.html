@@ -1,6 +1,9 @@
 {% extends 'base.html' %} 
+
 {% load static %} 
+
 {% block title %}Movies{% endblock %} 
+
 {% block content %}
 <div class="container my-5">
   {% if messages %}
@@ -56,10 +59,7 @@
       <a href="{% url 'movie_list' %}" class="btn btn-warning btn-sm">Reset</a>
     </div>  
   </div>
-
   {% if movies %}
-
-  
   <div class="container">
     <table class="table">
         <thead class="thead-dark">
@@ -121,9 +121,8 @@
         {% if movies.has_next %}
           <a href="?page={{ movies.next_page_number }}&per_page={{ per_page }}&title={{ request.GET.title|default:'' }}&status={{ request.GET.status|default:'' }}&rating={{ request.GET.rating|default:'' }}">Next</a>
           <a href="?page={{ movies.paginator.num_pages }}&per_page={{ per_page }}&title={{ request.GET.title|default:'' }}&status={{ request.GET.status|default:'' }}&rating={{ request.GET.rating|default:'' }}">Last</a>
-        {% endif %}    </span>
+        {% endif %}
   </div>
-
   {% else %}
   <p>No records found.</p>
   {% endif %}

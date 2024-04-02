@@ -1,6 +1,5 @@
 from django.urls import path
-from django.contrib.auth.views import LoginView
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth.views import LoginView, LogoutView
 from . import views
 
 
@@ -12,8 +11,8 @@ urlpatterns = [
     path('save_media/', views.save_media, name='save_media'),
     path('delete_media/<str:type>/<int:id>', views.delete_media, name='delete_media'),
     path('update_media/<str:type>/<int:id>', views.update_media, name='update_media'),
-    path('login/', LoginView.as_view(template_name='login.html'), name='login'),
     path('signup/', views.signup, name='signup'),
+    path('login/', LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
     path('search_title_movie/', views.search_title_movie, name='search_title_movie'),
     path('search_status_movie/', views.search_status_movie, name='search_status_movie'),
@@ -27,5 +26,4 @@ urlpatterns = [
     path('sort_tv_shows_by_title/', views.sort_tv_shows_by_title, name='sort_tv_shows_by_title'),
     path('sort_tv_shows_by_year/', views.sort_tv_shows_by_year, name='sort_tv_shows_by_year'),
     path('sort_tv_shows_by_rating/', views.sort_tv_shows_by_rating, name='sort_tv_shows_by_rating'),
-
 ]
