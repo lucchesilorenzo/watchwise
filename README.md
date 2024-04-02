@@ -23,17 +23,11 @@ code .
 
 ```bash
 python -m venv .venv
-```
 
-#### Activate for MacOS & Linux
-
-```bash
+# Activate for MacOS & Linux
 source .venv/bin/activate
-```
 
-#### Activate for Windows (Git Bash)
-
-```bash
+# Activate for Windows (Git Bash)
 source .venv/Scripts/activate
 ```
 
@@ -58,9 +52,6 @@ A list of commands for graph models
 
 ```bash
 cd watchwise_project
-```
-
-```bash
 python manage.py migrate
 python manage.py createsuperuser
 ```
