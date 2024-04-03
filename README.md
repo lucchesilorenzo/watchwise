@@ -43,7 +43,7 @@ Download the latest Windows packages from
 [here.](https://graphviz.org/download)
 
 1. Extract the ZIP archive
-2. Copy all the files from the bin folder and paste them into watchwise_prova/.venv/Scripts
+2. Copy all the files from the bin folder and paste them into ```watchwise_prova/.venv/Scripts```
 
 A list of commands for graph models
 [here.](https://django-extensions.readthedocs.io/en/latest/graph_models.html)
@@ -63,3 +63,9 @@ python manage.py runserver
 ```
 
 ### **Step 8**: Go to http://127.0.0.1:8000/watchwise/
+
+## Team
+<ul>
+    <li>Lorenzo Lucchesi</li>
+    <li>Gianni Jin</li>
+</ul>

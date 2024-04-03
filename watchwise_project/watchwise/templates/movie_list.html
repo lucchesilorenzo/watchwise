@@ -28,24 +28,24 @@
         </select>
       </form>
     </div>
-    <div>
+    <div class="mt-3"> <!-- Aggiunto margine top -->
       <form action="{% url 'search_title_movie' %}" method="get" class="d-inline-block">
-        <input type="text" class="form-control" placeholder="Search by title" name="title" onkeypress="return event.keyCode != 13;" />
+        <input type="text" class="form-control" placeholder="Search by title" name="title" />
         <input type="hidden" name="page" value="{{ movies.number }}">
         <input type="hidden" name="per_page" value="{{ per_page }}">
-        <button type="submit" class="btn btn-primary btn-sm">Search Movie</button>
+        <!-- <button type="submit" class="btn btn-primary btn-sm">Search Movie</button> -->
       </form>
         <input type="hidden" name="page" value="{{ movies.number }}">
         <input type="hidden" name="per_page" value="{{ per_page }}">
       </form>
       <form action="{% url 'search_rating_movie' %}" method="get" class="d-inline-block">
-        <input type="text" class="form-control" placeholder="Search by rating" name="rating" onkeypress="return event.keyCode != 13;" />
+        <input type="text" class="form-control" placeholder="Search by rating" name="rating" />
         <input type="hidden" name="page" value="{{ movies.number }}">
         <input type="hidden" name="per_page" value="{{ per_page }}">
-        <button type="submit" class="btn btn-secondary btn-sm">Search by Rating</button>
+        <!-- <button type="submit" class="btn btn-secondary btn-sm">Search by Rating</button> -->
       </form>
       <form action="{% url 'search_status_movie' %}" method="get" class="d-inline-block">
-        <select class="form-control" name="status">
+        <select class="form-control" name="status" onchange="this.form.submit()">
           <option value="">--Select Status--</option>
           <option value="watched">Watched</option>
           <option value="wishlist">Wishlist</option>
@@ -53,39 +53,43 @@
         </select>
         <input type="hidden" name="page" value="{{ movies.number }}">
         <input type="hidden" name="per_page" value="{{ per_page }}">
-        <button type="submit" class="btn btn-primary btn-sm">Search by Status</button>
-      </form>
-
-      <a href="{% url 'movie_list' %}" class="btn btn-warning btn-sm">Reset</a>
+      </form>      
+      <a href="{% url 'movie_list' %}" class="btn btn-warning btn d-inline-block align-top">Reset</a>
     </div>  
   </div>
   {% if movies %}
-  <div class="container">
+  <div class="container mt-4"> <!-- Aggiunto margine top -->
     <table class="table">
         <thead class="thead-dark">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">
-                  Title<br>
-                  <a href="{% url 'sort_movies_by_title' %}?sort_title=title">⬆️</a>
-                  <a href="{% url 'sort_movies_by_title' %}?sort_title=-title">⬇️</a>
-                </th>
-                <th scope="col">
-                  Year
-                  <a href="{% url 'sort_movies_by_year' %}?sort_year=release_date">⬆️</a>
-                  <a href="{% url 'sort_movies_by_year' %}?sort_year=-release_date">⬇️</a>
-                </th>
-                <th scope="col">Description</th><br>
-                <th scope="col">Original Language</th><br>
-                <th scope="col">Status</th><br>
-                <th scope="col">
-                  Rating<br>
-                  <a href="{% url 'sort_movies_by_rating' %}?sort_rating=rating">⬆️</a>
-                  <a href="{% url 'sort_movies_by_rating' %}?sort_rating=-rating">⬇️</a>
-                </th>                
-                <th scope="col">Comment</th>
-                <th scope="col">Actions</th>
-            </tr>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">
+                <div style="display: flex; align-items: center;">
+                    Title
+                    <a href="{% url 'sort_movies_by_title' %}?sort_title=title">&#x2B06;&#xFE0E;</a>
+                    <a href="{% url 'sort_movies_by_title' %}?sort_title=-title">&#x2B07;&#xFE0E;</a>
+                </div>
+            </th>
+            <th scope="col">
+                <div style="display: flex; align-items: center;">
+                    Year
+                    <a href="{% url 'sort_movies_by_year' %}?sort_year=release_date">&#x2B06;&#xFE0E;</a>
+                    <a href="{% url 'sort_movies_by_year' %}?sort_year=-release_date">&#x2B07;&#xFE0E;</a>
+                </div>
+            </th>
+            <th scope="col">Description</th>
+            <th scope="col">Original Language</th>
+            <th scope="col">Status</th>
+            <th scope="col">
+                <div style="display: flex; align-items: center;">
+                    Rating
+                    <a href="{% url 'sort_movies_by_rating' %}?sort_rating=rating">&#x2B06;&#xFE0E;</a>
+                    <a href="{% url 'sort_movies_by_rating' %}?sort_rating=-rating">&#x2B07;&#xFE0E;</a>
+                </div>
+            </th>                
+            <th scope="col">Comment</th>
+            <th scope="col">Actions</th>
+        </tr>        
         </thead>
       <tbody>
         {% for movie in movies.object_list %}
@@ -115,7 +119,7 @@
         {% endif %}
 
         <span class="current">
-          Page {{ movies.number }} of {{ movies.paginator.num_pages }}.
+          Page {{ movies.number }} of {{ movies.paginator.num_pages }}
         </span>
 
         {% if movies.has_next %}
