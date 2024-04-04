@@ -43,7 +43,7 @@
         <select class="form-control" name="status" onchange="this.form.submit()">
           <option value="">--Select Status--</option>
           <option value="watched">Watched</option>
-          <option value="wishlist">Wishlist</option>
+          <option value="watchlist">Watchlist</option>
           <option value="not_interested">Not Interested</option>
         </select>
         <input type="hidden" name="page" value="{{ movies.number }}">
@@ -55,39 +55,39 @@
   
   {% if movies %}
   <div class="container mt-4">
-    <table class="table">
+    <table class="table table-hover">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">#</th>
+            <th scope="col" class="text-center">#</th>
             <th scope="col">
-                <div style="display: flex; align-items: center;">
-                    Title
-                    <a href="{% url 'sort_movies_by_title' %}?sort_title=title" class="sort-arrow text-light ml-2" style="font-size: 1.5em;">&uarr;</a>
-                    <a href="{% url 'sort_movies_by_title' %}?sort_title=-title" class="sort-arrow text-light" style="font-size: 1.5em;">&darr;</a>
+                <div class="d-flex justify-content-center align-items-center">
+                    <span class="mr-2">Title</span>
+                    <a href="{% url 'sort_movies_by_title' %}?sort_title=title" class="sort-arrow text-light">&#9650;</a>
+                    <a href="{% url 'sort_movies_by_title' %}?sort_title=-title" class="sort-arrow text-light">&#9660;</a>
                 </div>
             </th>
             <th scope="col">
-                <div style="display: flex; align-items: center;">
-                    Year
-                    <a href="{% url 'sort_movies_by_year' %}?sort_year=release_date" class="sort-arrow text-light ml-2" style="font-size: 1.5em;">&uarr;</a>
-                    <a href="{% url 'sort_movies_by_year' %}?sort_year=-release_date" class="sort-arrow text-light" style="font-size: 1.5em;">&darr;</a>
+                <div class="d-flex justify-content-center align-items-center">
+                    <span class="mr-2">Year</span>
+                    <a href="{% url 'sort_movies_by_year' %}?sort_year=release_date" class="sort-arrow text-light">&#9650;</a>
+                    <a href="{% url 'sort_movies_by_year' %}?sort_year=-release_date" class="sort-arrow text-light">&#9660;</a>
                 </div>
             </th>
-            <th scope="col">Description</th>
-            <th scope="col">Original Language</th>
-            <th scope="col">Status</th>
+            <th scope="col" class="text-center">Description</th>
+            <th scope="col" class="text-center">Language</th>
+            <th scope="col" class="text-center">Status</th>
             <th scope="col">
-                <div style="display: flex; align-items: center;">
-                    Rating
-                    <a href="{% url 'sort_movies_by_rating' %}?sort_rating=rating" class="sort-arrow text-light ml-2" style="font-size: 1.5em;">&uarr;</a>
-                    <a href="{% url 'sort_movies_by_rating' %}?sort_rating=-rating" class="sort-arrow text-light" style="font-size: 1.5em;">&darr;</a>
+                <div class="d-flex justify-content-center align-items-center">
+                    <span class="mr-2">Rating</span>
+                    <a href="{% url 'sort_movies_by_rating' %}?sort_rating=rating" class="sort-arrow text-light">&#9650;</a>
+                    <a href="{% url 'sort_movies_by_rating' %}?sort_rating=-rating" class="sort-arrow text-light">&#9660;</a>
                 </div>
             </th>
-            <th scope="col">Comment</th>
-            <th scope="col">Actions</th>
+            <th scope="col" class="text-center">Comment</th>
+            <th scope="col" class="text-center">Actions</th>
           </tr>
         </thead>
-      <tbody>
+        <tbody>
         {% for movie in movies.object_list %}
         <tr>
           <th scope="row">{{ forloop.counter }}</th>

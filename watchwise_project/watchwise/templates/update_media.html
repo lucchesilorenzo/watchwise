@@ -10,7 +10,7 @@
         <div class="form-group">
             <label for="status">Status:</label>
             <select class="form-control" id="status" name="status">
-                <option value="wishlist" {% if media.status == 'wishlist' %}selected{% endif %}>Wishlist</option>
+                <option value="watchlist" {% if media.status == 'watchlist' %}selected{% endif %}>Watchlist</option>
                 <option value="watched" {% if media.status == 'watched' %}selected{% endif %}>Watched</option>
                 <option value="not_interested" {% if media.status == 'not_interested' %}selected{% endif %}>Not Interested</option>
             </select>

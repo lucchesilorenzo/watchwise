@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
     
 STATUS_CHOICES = [
     ('watched', 'Watched'),
-    ('wishlist', 'Wishlist'),
+    ('watchlist', 'Watchlist'),
     ('not_interested', 'Not Interested'),
 ]
 
@@ -15,7 +15,7 @@ class Movie(models.Model):
     release_date = models.IntegerField()
     overview = models.TextField()
     original_language = models.CharField(max_length=2)
-    status = models.CharField(max_length=14, choices=STATUS_CHOICES, default='wishlist')
+    status = models.CharField(max_length=14, choices=STATUS_CHOICES, default='watchlist')
     rating = models.IntegerField()
     comment = models.TextField(null=True, blank=True)
 
@@ -26,7 +26,7 @@ class TVShow(models.Model):
     first_air_date = models.IntegerField()
     overview = models.TextField()
     original_language = models.CharField(max_length=2)
-    status = models.CharField(max_length=14, choices=STATUS_CHOICES, default='wishlist')
+    status = models.CharField(max_length=14, choices=STATUS_CHOICES, default='watchlist')
     rating = models.IntegerField()
     comment = models.TextField(null=True, blank=True)
 
