@@ -13,113 +13,166 @@
     {% endfor %}
   </div>
   {% endif %}
+  
   <h1 class="mb-4">List of TV Shows</h1>
-  <div class="d-flex justify-content-between align-items-center">
-    <div>
-      <form method="get">
-        <label for="per_page">Records per Page:</label>
-        <select name="per_page" id="per_page" onchange="this.form.submit()">
-          <option value="10" {% if per_page == "10" %}selected{% endif %}>10</option>
-          <option value="20" {% if per_page == "20" %}selected{% endif %}>20</option>
-          <option value="30" {% if per_page == "30" %}selected{% endif %}>30</option>
-          <option value="50" {% if per_page == "50" %}selected{% endif %}>50</option>
-          <option value="100" {% if per_page == "100" %}selected{% endif %}>100</option>
-        </select>
-      </form>
-    </div>
-    <div>
-      <form action="{% url 'search_title_tv' %}" method="get" class="d-inline-block">
-        <input type="text" class="form-control" placeholder="Search by title" name="title" onkeypress="return event.keyCode != 13;" />
-        <input type="hidden" name="page" value="{{ tv_shows.number }}">
-        <input type="hidden" name="per_page" value="{{ per_page }}">
-        <button type="submit" class="btn btn-primary btn-sm">Search TV Show</button>
-      </form>
-      <form action="{% url 'search_status_tv' %}" method="get" class="d-inline-block">
-        <select class="form-control" name="status">
-          <option value="">--Select Status--</option>
-          <option value="watched">Watched</option>
-          <option value="watchlist">Watchlist</option>
-          <option value="not_interested">Not Interested</option>
-        </select>
-        <input type="hidden" name="page" value="{{ tv_shows.number }}">
-        <input type="hidden" name="per_page" value="{{ per_page }}">
-        <button type="submit" class="btn btn-primary btn-sm">Search by Status</button>
-      </form>
-      <form action="{% url 'search_rating_tv' %}" method="get" class="d-inline-block">
-        <input type="text" class="form-control" placeholder="Search by rating" name="rating" onkeypress="return event.keyCode != 13;" />
-        <input type="hidden" name="page" value="{{ tv_shows.number }}">
-        <input type="hidden" name="per_page" value="{{ per_page }}">
-        <button type="submit" class="btn btn-secondary btn-sm">Search by Rating</button>
-      </form>
-      <a href="{% url 'tv_show_list' %}" class="btn btn-warning btn-sm">Reset</a>
-    </div>  
-  </div>
-  {% if tv_shows %}
-  <div class="container">
-    <table class="table">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">
-            Title<br>
-            <a href="{% url 'sort_tv_shows_by_title' %}?sort_title=title">&#x2B06;&#xFE0E;</a>
-            <a href="{% url 'sort_tv_shows_by_title' %}?sort_title=-title">&#x2B07;&#xFE0E;</a>
-          </th>
-          <th scope="col">
-            Year
-            <a href="{% url 'sort_tv_shows_by_year' %}?sort_year=first_air_date">&#x2B06;&#xFE0E;</a>
-            <a href="{% url 'sort_tv_shows_by_year' %}?sort_year=-first_air_date">&#x2B07;&#xFE0E;</a>
-          </th>
+  <div class="container-fluid bg-light p-4 shadow-sm rounded">
+    <div class="row justify-content-between align-items-center">
+      
+      <div class="col-lg-4">
+        <form method="get" class="form-inline">
+          <label for="per_page" class="mr-2">Records per Page:</label>
+          <select name="per_page" id="per_page" onchange="this.form.submit()" class="custom-select mr-sm-2">
+            <option value="10" {% if per_page == "10" %}selected{% endif %}>10</option>
+            <option value="20" {% if per_page == "20" %}selected{% endif %}>20</option>
+            <option value="30" {% if per_page == "30" %}selected{% endif %}>30</option>
+            <option value="50" {% if per_page == "50" %}selected{% endif %}>50</option>
+            <option value="100" {% if per_page == "100" %}selected{% endif %}>100</option>
+          </select>
+          <input type="hidden" name="page" value="{{ tv_shows.number }}">
+        </form>
+      </div>
+      
+      <div class="col-lg-8">
+        <div class="d-flex justify-content-end">
+          <form action="{% url 'search_title_tv' %}" method="get" class="mr-2">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search by title" name="title">
+              <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="submit">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+              <input type="hidden" name="page" value="{{ tv_shows.number }}">
+              <input type="hidden" name="per_page" value="{{ per_page }}">
+            </div>
+          </form>
           
-          <th scope="col">Description</th><br>
-          <th scope="col">Original Language</th><br>
-          <th scope="col">Status</th><br>
-          <th scope="col">
-            Rating<br>
-            <a href="{% url 'sort_tv_shows_by_rating' %}?sort_rating=rating">&#x2B06;&#xFE0E;</a>
-            <a href="{% url 'sort_tv_shows_by_rating' %}?sort_rating=-rating">&#x2B07;&#xFE0E;</a>
-          </th>
-          <th scope="col">Comment</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-    <tbody>
-        {% for tv_show in tv_shows.object_list %}
-        <tr>
-          <th scope="row">{{ forloop.counter }}</th>
-          <td>{{ tv_show.title }}</td>
-          <td>{{ tv_show.first_air_date }}</td>
-          <td>{{ tv_show.overview }}</td>
-          <td>{{ tv_show.original_language }}</td>
-          <td>{{ tv_show.get_status_display }}</td>
-          <td>{{ tv_show.rating }}</td>
-          <td>{{ tv_show.comment }}</td>
-          <td>
-            <a href="{% url 'delete_media' 'tv' tv_show.TV_id %}">Delete</a>
-            <a href="{% url 'update_media' 'tv' tv_show.TV_id %}">Update</a>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+          <form action="{% url 'search_rating_tv' %}" method="get" class="mr-2">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search by rating" name="rating">
+              <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="submit">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+              <input type="hidden" name="page" value="{{ tv_shows.number }}">
+              <input type="hidden" name="per_page" value="{{ per_page }}">
+            </div>
+          </form>
+          
+          <form action="{% url 'search_status_tv' %}" method="get" class="d-flex align-items-center mr-2 flex-grow-1">
+            <select class="custom-select flex-grow-1 mr-2" name="status" onchange="this.form.submit()">
+              <option value="">Select Status</option>
+              <option value="watched">Watched</option>
+              <option value="watchlist">Watchlist</option>
+              <option value="not_interested">Not Interested</option>
+            </select>
+            <input type="hidden" name="page" value="{{ tv_shows.number }}">
+            <input type="hidden" name="per_page" value="{{ per_page }}">
+          </form>
+          
+          <a href="{% url 'tv_show_list' %}" class="btn btn-warning">Reset</a>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="pagination">
-    <span class="step-links">
-      {% if tv_shows.has_previous %}
-        <a href="?page=1&per_page={{ per_page }}">First</a>
-        <a href="?page={{ tv_shows.previous_page_number }}&per_page={{ per_page }}">Previous</a>
-      {% endif %}
-      <span class="current">
-        Page {{ tv_shows.number }} of {{ tv_shows.paginator.num_pages }}.
-      </span>
-      {% if tv_shows.has_next %}
-        <a href="?page={{ tv_shows.next_page_number }}&per_page={{ per_page }}">Next</a>
-        <a href="?page={{ tv_shows.paginator.num_pages }}&per_page={{ per_page }}">Last</a>
-      {% endif %}
-    </span>
+
+    
+    {% if tv_shows %}
+    <div class="container mt-4">
+      <table class="table table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col" class="text-center">#</th>
+              <th scope="col">
+                  <div class="d-flex justify-content-center align-items-center">
+                      <span class="mr-2">Title</span>
+                      <a href="{% url 'sort_tv_shows_by_title' %}?sort_title=title" class="sort-arrow text-light">&#9650;</a>
+                      <a href="{% url 'sort_tv_shows_by_title' %}?sort_title=-title" class="sort-arrow text-light">&#9660;</a>
+                  </div>
+              </th>
+              <th scope="col">
+                  <div class="d-flex justify-content-center align-items-center">
+                      <span class="mr-2">Year</span>
+                      <a href="{% url 'sort_tv_shows_by_year' %}?sort_year=first_air_date" class="sort-arrow text-light">&#9650;</a>
+                      <a href="{% url 'sort_tv_shows_by_year' %}?sort_year=-first_air_date" class="sort-arrow text-light">&#9660;</a>
+                  </div>
+              </th>
+              <th scope="col" class="text-center">Description</th>
+              <th scope="col" class="text-center">Language</th>
+              <th scope="col" class="text-center">Status</th>
+              <th scope="col">
+                  <div class="d-flex justify-content-center align-items-center">
+                      <span class="mr-2">Rating</span>
+                      <a href="{% url 'sort_tv_shows_by_rating' %}?sort_rating=rating" class="sort-arrow text-light">&#9650;</a>
+                      <a href="{% url 'sort_tv_shows_by_rating' %}?sort_rating=-rating" class="sort-arrow text-light">&#9660;</a>
+                  </div>
+              </th>
+              <th scope="col" class="text-center">Comment</th>
+              <th scope="col" class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for tv_show in tv_shows.object_list %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ tv_show.title }}</td>
+            <td>{{ tv_show.first_air_date }}</td>
+            <td>{{ tv_show.overview }}</td>
+            <td>{{ tv_show.original_language }}</td>
+            <td>{{ tv_show.get_status_display }}</td>
+            <td>{{ tv_show.rating }}</td>
+            <td>{{ tv_show.comment }}</td>
+            <td>
+              <a href="{% url 'update_media' 'tv' tv_show.TV_id %}" class="btn-custom btn-update" role="button"><i class="fas fa-edit"></i> Update</a> 
+              <a href="{% url 'delete_media' 'tv' tv_show.TV_id %}" class="btn-custom btn-delete" role="button"><i class="fas fa-trash-alt"></i> Delete</a>      
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="mt-4 d-flex justify-content-center">
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          {% if tv_shows.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page=1&per_page={{ per_page }}&title={{ request.GET.title|default:'' }}&status={{ request.GET.status|default:'' }}&rating={{ request.GET.rating|default:'' }}" aria-label="First">
+                <span aria-hidden="true">&laquo;&laquo;</span>
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="?page={{ tv_shows.previous_page_number }}&per_page={{ per_page }}&title={{ request.GET.title|default:'' }}&status={{ request.GET.status|default:'' }}&rating={{ request.GET.rating|default:'' }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+          {% endif %}
+
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Page {{ tv_shows.number }} of {{ tv_shows.paginator.num_pages }}</a>
+          </li>
+
+          {% if tv_shows.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ tv_shows.next_page_number }}&per_page={{ per_page }}&title={{ request.GET.title|default:'' }}&status={{ request.GET.status|default:'' }}&rating={{ request.GET.rating|default:'' }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="?page={{ tv_shows.paginator.num_pages }}&per_page={{ per_page }}&title={{ request.GET.title|default:'' }}&status={{ request.GET.status|default:'' }}&rating={{ request.GET.rating|default:'' }}" aria-label="Last">
+                <span aria-hidden="true">&raquo;&raquo;</span>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
   </div>
+
   {% else %}
-  <p>No records found.</p>
+  <div class="text-center mt-5">
+    <i class="fas fa-tv fa-3x text-muted"></i>
+    <p class="mt-3 text-muted" style="font-size: 20px;">No records found</p>
+  </div>
   {% endif %}
 </div>
 {% endblock %}
