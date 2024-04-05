@@ -5,8 +5,8 @@
 {% block title %} WatchWise {% endblock %} 
 
 {% block content %}
-<div class="container my-5 text-center" style="max-width: 610px">
-  <h1>WatchWise - Tracking Web App</h1>
+<div class="container my-5 text-center" style="max-width: 650px">
+  <h1>WatchWise: Track, Discover, Enjoy</h1>
   <p class="lead">Click the buttons below to search for movies or TV shows</p>
 </div>
 
@@ -15,11 +15,16 @@
     <div class="col-md-8">
       <input type="text" class="form-control" placeholder="Search on WatchWise" name="q" onkeypress="return event.keyCode != 13;" />
     </div>
+
     <div class="btn-group col-md-8 mt-3 d-flex justify-content-center">
-      <button type="submit" class="btn btn-primary rounded" name="type" value="movie">Search Movie</button>
-      <button type="submit" class="btn btn-secondary rounded ml-2" name="type" value="tv">Search TV Show</button>
+      <button type="submit" class="btn btn-primary rounded icon-button" name="type" value="movie">
+        <i class="fas fa-film mr-1"></i> Search Movie
+      </button>
+      <button type="submit" class="btn btn-secondary rounded icon-button ml-2" name="type" value="tv">
+        <i class="fas fa-tv mr-1"></i> Search TV Show
+      </button>
     </div>
+    
   </form>
 </div>
-
 {% endblock %}
