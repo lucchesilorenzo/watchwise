@@ -1,6 +1,6 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
-{% block title %}Update Movie{% endblock %} 
+{% block title %}Update Movie{% endblock %}
 
 {% block content %}
 <div class="container my-5">
@@ -19,7 +19,7 @@
             <label for="rating">Rating:</label>
             <select class="form-control" id="rating" name="rating">
                 {% for i in "12345" %}
-                    <option value="{{ i }}" {% if media.rating == i %}selected{% endif %}>{{ i }}</option>
+                    <option value="{{ i }}" {% if media.rating|stringformat:"s" == i %}selected{% endif %}>{{ i }}</option>
                 {% endfor %}
             </select>
         </div>

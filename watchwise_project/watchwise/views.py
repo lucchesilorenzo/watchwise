@@ -38,6 +38,7 @@ def tv_show_list(request):
 
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows, 'per_page': per_page})
 
+
 def results(request):
     query = request.GET.get('q')
     if query:
@@ -188,6 +189,7 @@ def search_status_movie(request):
     movies = Movie.objects.filter(status__icontains=status)
     movies = paginate_queryset(request, movies)
     return render(request, 'movie_list.html', {'movies': movies})
+
 
 def search_rating_movie(request):
     rating = request.GET.get('rating', '')
