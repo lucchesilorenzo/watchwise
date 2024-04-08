@@ -2,7 +2,7 @@
 
 ## Description
 
-"WatchWise" is a full-stack project designed for tracking both movies and TV shows. It is developed using Django/Python for the backend and HTML/CSS for the frontend.
+"WatchWise" is a full-stack project designed for tracking both movies and TV shows. It is developed using Django/Python for the backend and HTML/CSS/Bootstrap for the frontend.
 
 The program aims to assist users in navigating the TMDB database, a very popular public media database. It offers numerous functionalities, including saving TV shows and movies into the database along with preferences and comments, filtering records by name and list type, updating and deleting entries, and much more.
 
@@ -69,19 +69,20 @@ python manage.py runserver
 
 ### **Step 8**: Go to http://127.0.0.1:8000/watchwise/
 
-## Team
-<ul>
-    <li>Lorenzo Lucchesi</li>
-    <li>Gianni Jin</li>
-</ul>
-
 
 ## Future Plans
 - Implement authentication and optimize user login/logout functionalities.
 - Enhance the front-end experience with a robust framework like React or Angular.
 
+
 ## References
 
 https://developer.themoviedb.org/reference/intro/getting-started
 
+
+## Team
+<ul>
+    <li>Lorenzo Lucchesi</li>
+    <li>Gianni Jin</li>
+</ul>
 
