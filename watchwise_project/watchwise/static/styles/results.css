@@ -25,4 +25,18 @@
     text-decoration: underline; 
     outline: none; 
   }
+
+  .rating-stars {
+    direction: rtl; /* Ordina le stelle da destra a sinistra */
+  }
+  
+  .rating-stars .star {
+    cursor: pointer;
+    font-size: 25px;
+    color: #ccc; /* Colore delle stelle non selezionate */
+  }
+  
+  .rating-stars .star.rated {
+    color: gold; /* Colore delle stelle selezionate */
+  }
   
