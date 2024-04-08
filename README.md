@@ -1,8 +1,6 @@
 # WatchWise
 
-## Description
-
-"WatchWise" is a full-stack project designed for tracking both movies and TV shows. It is developed using Django/Python for the backend and HTML/CSS/Bootstrap for the frontend.
+WatchWise is a full-stack project designed for tracking both movies and TV shows. It is developed using Django/Python for the backend and HTML/CSS/Bootstrap for the frontend.
 
 The program aims to assist users in navigating the TMDB database, a very popular public media database. It offers numerous functionalities, including saving TV shows and movies into the database along with preferences and comments, filtering records by name and list type, updating and deleting entries, and much more.
 
@@ -11,22 +9,25 @@ The program aims to assist users in navigating the TMDB database, a very popular
 
 Follow these steps to set up the project:
 
+
 ### **Step 1**: Clone the project
 
-```bash
+```sh
 git clone https://github.com/lucchesilorenzo/watchwise_prova.git
 ```
 
+
 ### **Step 2**: Navigate to the directory
 
-```bash
+```sh
 cd watchwise_prova
 code .
 ```
 
+
 ### **Step 3**: Create and activate a virtual environment
 
-```bash
+```sh
 python -m venv .venv
 
 # Activate for MacOS & Linux
@@ -38,9 +39,10 @@ source .venv/Scripts/activate
 
 ### **Step 4**: Install dependencies
 
-```bash
+```sh
 pip install -r requirements.txt
 ```
+
 
 ### **Step 5**: Download PyGraphViz packages for Windows
 
@@ -53,24 +55,28 @@ Download the latest Windows packages from
 A list of commands for graph models
 [here.](https://django-extensions.readthedocs.io/en/latest/graph_models.html)
 
+
 ### **Step 6**: Migrate the database and create a superuser
 
-```bash
+```sh
 cd watchwise_project
 python manage.py migrate
 python manage.py createsuperuser
 ```
 
+
 ### **Step 7**: Run the server
 
-```bash
+```sh
 python manage.py runserver
 ```
+
 
 ### **Step 8**: Go to http://127.0.0.1:8000/watchwise/
 
 
 ## Future Plans
+
 - Implement authentication and optimize user login/logout functionalities.
 - Enhance the front-end experience with a robust framework like React or Angular.
 
@@ -81,8 +87,6 @@ https://developer.themoviedb.org/reference/intro/getting-started
 
 
 ## Team
-<ul>
-    <li>Lorenzo Lucchesi</li>
-    <li>Gianni Jin</li>
-</ul>
 
+- Lorenzo Lucchesi
+- Gianni Jin
