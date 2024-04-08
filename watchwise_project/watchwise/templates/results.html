@@ -25,7 +25,9 @@
           {% else %}
           <h5 class="card-title">{{ m.name }} ({{ m.first_air_date }})</h5>
           {% endif %}
-          <p class="card-text">{{ m.overview|truncatechars:300 }}</p>
+          <div class="overview-wrapper">
+            <p class="card-text overview" id="overview-{{ forloop.counter }}">{{ m.overview }}</p>
+          </div>
           <p><strong>Original Language:</strong> {{ m.original_language }}</p>
           <form method="post" action="{% url 'save_media' %}" class="mt-auto">
             {% csrf_token %}
@@ -60,4 +62,38 @@
     {% endfor %}
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.overview-wrapper').forEach(function(wrapper, index) {
+      const overview = wrapper.querySelector('.overview');
+      const originalText = overview.textContent;
+      const moreTextSpan = document.createElement('span');
+      moreTextSpan.className = 'overview-more';
+      moreTextSpan.textContent = 'More...';
+      moreTextSpan.style.display = 'none';
+      
+      wrapper.after(moreTextSpan);
+  
+      if (originalText.length > 100) {
+        overview.textContent = originalText.substring(0, 100) + '...';
+        moreTextSpan.style.display = 'inline';
+  
+        moreTextSpan.addEventListener('click', function() {
+          const isExpanded = wrapper.classList.toggle('expanded');
+          if (isExpanded) {
+            overview.textContent = originalText;
+            moreTextSpan.textContent = 'Less...';
+            wrapper.style.maxHeight = 'none';
+          } else {
+            overview.textContent = originalText.substring(0, 100) + '...';
+            moreTextSpan.textContent = 'More...';
+            wrapper.style.maxHeight = '100px';
+          }
+        });
+      }
+    });
+  });
+</script>
+
 {% endblock %}

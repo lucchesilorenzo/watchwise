@@ -1,0 +1,28 @@
+.overview-wrapper {
+    max-height: 100px;
+    overflow: hidden;
+    position: relative;
+    transition: max-height 0.3s ease;
+  }
+  
+  .overview-wrapper.expanded {
+    max-height: 500px;
+  }
+  
+  .overview-more {
+    cursor: pointer;
+    display: block; 
+    margin-top: 10px; 
+    font-size: inherit;
+    color: #007bff; 
+    background-color: transparent;
+    transition: color 0.2s ease-in-out; 
+    text-decoration: none;
+  }
+  
+  .overview-more:hover, .overview-more:focus {
+    color: #0056b3; 
+    text-decoration: underline; 
+    outline: none; 
+  }
+  
