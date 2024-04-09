@@ -1,8 +1,8 @@
 # WatchWise
 
-WatchWise is a full-stack project designed for tracking both movies and TV shows. It is developed using Django/Python for the backend and HTML/CSS/Bootstrap for the frontend.
+WatchWise is a full stack project designed for tracking both movies and TV shows. It is developed using Django/Python for the backend and HTML/CSS/Bootstrap/JavaScript for the frontend.
 
-The program aims to assist users in navigating the TMDB database, a very popular public media database. It offers numerous functionalities, including saving TV shows and movies into the database along with preferences and comments, filtering records by name and list type, updating and deleting entries, and much more.
+The program aims to assist users in navigating the TMDB (The Movie Database), a very popular public media database. It offers numerous functionalities, including saving TV shows and movies into the database along with preferences and comments, filtering records by name and list type, updating and deleting entries, and much more.
 
 
 ## Project Setup
@@ -44,19 +44,7 @@ pip install -r requirements.txt
 ```
 
 
-### **Step 5**: Download PyGraphViz packages for Windows
-
-Download the latest Windows packages from
-[here.](https://graphviz.org/download)
-
-1. Extract the ZIP archive
-2. Copy all the files from the bin folder and paste them into ```watchwise_prova/.venv/Scripts```
-
-A list of commands for graph models
-[here.](https://django-extensions.readthedocs.io/en/latest/graph_models.html)
-
-
-### **Step 6**: Migrate the database and create a superuser
+### **Step 5**: Migrate the database and create a superuser
 
 ```sh
 cd watchwise_project
@@ -65,14 +53,14 @@ python manage.py createsuperuser
 ```
 
 
-### **Step 7**: Run the server
+### **Step 6**: Run the server
 
 ```sh
 python manage.py runserver
 ```
 
 
-### **Step 8**: Go to http://127.0.0.1:8000/watchwise/
+### **Step 7**: Go to http://127.0.0.1:8000/watchwise/
 
 
 ## Future Plans
