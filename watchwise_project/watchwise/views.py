@@ -81,18 +81,14 @@ def update_media(request, id, type):
     else:
         messages.error(request, "Invalid media type")
         return redirect('results')
-
     if request.method == 'POST':
         media.status = request.POST.get('status')
-        media.rating = request.POST.get('rating')
+        rating = request.POST.get('rating')
+        media.rating = None if rating == '' else rating
         media.comment = request.POST.get('comment')
         media.save()
         messages.success(request, "Updated Successfully")
-        
-        if type == 'movie':
-            return redirect('movie_list')
-        elif type == 'tv':
-            return redirect('tv_show_list')
+        return redirect('movie_list' if type == 'movie' else 'tv_show_list')
     else:
         return render(request, 'update_media.html', {'media': media})
         
@@ -101,38 +97,35 @@ def save_media(request):
     if request.method == 'POST':
         status = request.POST.get('status')
         rating = request.POST.get('rating')
+        rating = None if rating == '' else rating
         TV_id = request.POST.get('TV_id')
         type = request.POST.get('type')
         title = request.POST.get('title')
-        date_str = request.POST.get('date') 
+        date_str = request.POST.get('date')
         overview = request.POST.get('overview')
         original_language = request.POST.get('original_language')
         comment = request.POST.get('comment')
-
         try:
             date = int(date_str) if date_str is not None else None
         except ValueError:
             messages.error(request, "Invalid date provided.")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-
         if not date:
             messages.error(request, "Date is required.")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-
         if type == 'movie':
             movie, created = Movie.objects.get_or_create(
-                movie_id=TV_id, 
+                movie_id=TV_id,
                 defaults={
-                    'title': title, 
-                    'release_date': date, 
-                    'overview': overview, 
-                    'original_language': original_language, 
-                    'status': status, 
+                    'title': title,
+                    'release_date': date,
+                    'overview': overview,
+                    'original_language': original_language,
+                    'status': status,
                     'rating': rating,
                     'comment': comment
                 }
             )
-
             if not created:
                 movie.status = status
                 movie.rating = rating
@@ -140,24 +133,22 @@ def save_media(request):
                 movie.save()
         elif type == 'tv':
             tv_show, created = TVShow.objects.get_or_create(
-                TV_id=TV_id, 
+                TV_id=TV_id,
                 defaults={
-                    'title': title, 
-                    'first_air_date': date, 
-                    'overview': overview, 
-                    'original_language': original_language, 
-                    'status': status, 
+                    'title': title,
+                    'first_air_date': date,
+                    'overview': overview,
+                    'original_language': original_language,
+                    'status': status,
                     'rating': rating,
                     'comment': comment
                 }
             )
-            
             if not created:
                 tv_show.status = status
                 tv_show.rating = rating
                 tv_show.comment = comment
                 tv_show.save()
-
         messages.success(request, "Your media has been saved successfully!")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     else:

@@ -33,6 +33,7 @@
             {% csrf_token %}
             <div class="mb-2">
               <select name="status" class="form-select">
+                <option value="empty">---------</option>
                 <option value="watched">Watched</option>
                 <option value="watchlist">Watchlist</option>
                 <option value="not_interested">Not Interested</option>
