@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
     
     
 STATUS_CHOICES = [
-    ('empty', ''),
+    ('empty', 'None'),
     ('watched', 'Watched'),
     ('watchlist', 'Watchlist'),
     ('not_interested', 'Not Interested'),
@@ -11,6 +11,7 @@ STATUS_CHOICES = [
 
 
 class Movie(models.Model):
+    external_id = models.CharField(max_length=100, unique=True, null=True, blank=True)
     movie_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200)
     release_date = models.IntegerField(null=True, blank=True)
@@ -22,6 +23,7 @@ class Movie(models.Model):
 
 
 class TVShow(models.Model):
+    external_id = models.CharField(max_length=100, unique=True, null=True, blank=True)
     TV_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200)
     first_air_date = models.IntegerField(null=True, blank=True)

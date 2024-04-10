@@ -49,8 +49,8 @@
             </div>
             <input type="hidden" name="rating" id="rating" value="">
 
-            <textarea name="comment" class="form-control mb-2"></textarea>
-            <input type="hidden" name="movie_id" value="{{ m.id }}">
+            <textarea name="comment" class="form-control mb-2" placeholder="Your comment..."></textarea>
+            <input type="hidden" name="external_id" value="{{ m.id }}">
             <input type="hidden" name="type" value="{{ type }}">
             <input type="hidden" name="title" value="{% if type == 'movie' %}{{ m.title }}{% else %}{{ m.name }}{% endif %}">
             <input type="hidden" name="date" value="{% if type == 'movie' %}{{ m.release_date }}{% else %}{{ m.first_air_date }}{% endif %}">

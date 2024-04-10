@@ -95,63 +95,49 @@ def update_media(request, id, type):
 
 def save_media(request):
     if request.method == 'POST':
-        status = request.POST.get('status')
-        rating = request.POST.get('rating')
-        rating = None if rating == '' else rating
-        TV_id = request.POST.get('TV_id')
-        type = request.POST.get('type')
-        title = request.POST.get('title')
-        date_str = request.POST.get('date')
-        overview = request.POST.get('overview')
-        original_language = request.POST.get('original_language')
-        comment = request.POST.get('comment')
+        external_id = request.POST.get('external_id') 
+        media_type = request.POST.get('type')
+
+        existing_media = Movie.objects.filter(external_id=external_id) if media_type == 'movie' else TVShow.objects.filter(external_id=external_id)
+        if existing_media.exists():
+            messages.info(request, "This media is already in the database.")
+            return redirect(request.META.get('HTTP_REFERER', '/'))
 
         try:
+            status = request.POST.get('status')
+            rating = request.POST.get('rating', None)
+            title = request.POST.get('title')
+            date_str = request.POST.get('date')
+            overview = request.POST.get('overview')
+            original_language = request.POST.get('original_language')
+            comment = request.POST.get('comment')
+            rating = None if rating == '' else int(rating)
             date = int(date_str) if date_str else None
-        except ValueError:
-            date = None
+
+            media_details = {
+                'external_id': external_id,
+                'title': title,
+                'release_date' if media_type == 'movie' else 'first_air_date': date,
+                'overview': overview,
+                'original_language': original_language,
+                'status': status,
+                'rating': rating,
+                'comment': comment
+            }
+
+            if media_type == 'movie':
+                Movie.objects.create(**media_details)
+            else:
+                TVShow.objects.create(**media_details)
+
+            messages.success(request, "Your media has been added successfully!")
+        except Exception as e:
+            messages.error(request, f"Error adding media: {str(e)}")
         
-        if type == 'movie':
-            movie, created = Movie.objects.get_or_create(
-                movie_id=TV_id,
-                defaults={
-                    'title': title,
-                    'release_date': date,
-                    'overview': overview,
-                    'original_language': original_language,
-                    'status': status,
-                    'rating': rating,
-                    'comment': comment
-                }
-            )
-            if not created:
-                movie.status = status
-                movie.rating = rating
-                movie.comment = comment
-                movie.save()
-        elif type == 'tv':
-            tv_show, created = TVShow.objects.get_or_create(
-                TV_id=TV_id,
-                defaults={
-                    'title': title,
-                    'first_air_date': date,
-                    'overview': overview,
-                    'original_language': original_language,
-                    'status': status,
-                    'rating': rating,
-                    'comment': comment
-                }
-            )
-            if not created:
-                tv_show.status = status
-                tv_show.rating = rating
-                tv_show.comment = comment
-                tv_show.save()
-        messages.success(request, "Your media has been saved successfully!")
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        return redirect(request.META.get('HTTP_REFERER', '/'))
     else:
-        messages.error(request, "Invalid request method.")
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        messages.error(request, "This method is not allowed.")
+        return redirect(request.META.get('HTTP_REFERER', '/'))
     
 
 def paginate_queryset(request, queryset, default_per_page=10):
