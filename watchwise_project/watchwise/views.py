@@ -105,14 +105,12 @@ def save_media(request):
         overview = request.POST.get('overview')
         original_language = request.POST.get('original_language')
         comment = request.POST.get('comment')
+
         try:
-            date = int(date_str) if date_str is not None else None
+            date = int(date_str) if date_str else None
         except ValueError:
-            messages.error(request, "Invalid date provided.")
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-        if not date:
-            messages.error(request, "Date is required.")
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+            date = None
+        
         if type == 'movie':
             movie, created = Movie.objects.get_or_create(
                 movie_id=TV_id,
