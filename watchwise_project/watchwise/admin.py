@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Profile, Movie, TVShow
 
+
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
     list_display = (
@@ -28,7 +29,7 @@ class TVShowAdmin(admin.ModelAdmin):
         'comment',
     )
 
-    
+# Da utilizzare
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'birth_date')

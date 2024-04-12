@@ -6,7 +6,6 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import FloatField
 from django.db.models.functions import Cast
-from django.http import HttpResponseRedirect
 import requests
 
 
