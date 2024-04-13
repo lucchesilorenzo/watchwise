@@ -27,16 +27,16 @@
   }
 
   .rating-stars {
-    direction: rtl; /* Ordina le stelle da destra a sinistra */
+    direction: rtl;
   }
   
   .rating-stars .star {
     cursor: pointer;
     font-size: 25px;
-    color: #ccc; /* Colore delle stelle non selezionate */
+    color: #ccc;
   }
   
   .rating-stars .star.rated {
-    color: gold; /* Colore delle stelle selezionate */
+    color: gold;
   }
   

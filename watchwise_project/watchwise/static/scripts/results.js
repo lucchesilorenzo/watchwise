@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Gestisce l'espansione e la compressione delle descrizioni "More/Less"
   document.querySelectorAll('.overview-wrapper').forEach(function(wrapper) {
     const overview = wrapper.querySelector('.overview');
     const originalText = overview.textContent;
@@ -27,16 +26,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Funzione per resettare tutte le stelle a non selezionate
   function resetStars() {
     document.querySelectorAll('.rating-stars .star').forEach(function(star) {
       star.classList.remove('rated');
     });
   }
 
-  // Funzione per aggiornare le stelle in base al valore di valutazione nella card corrente
   function updateStars(starsContainer, ratingValue) {
-    resetStars(); // Assicurati di resettare le stelle prima di applicare il nuovo rating
+    resetStars();
     starsContainer.querySelectorAll('.star').forEach(function(star) {
       if (parseInt(star.getAttribute('data-value')) <= ratingValue) {
         star.classList.add('rated');
@@ -44,15 +41,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Gestisce la selezione del rating con le stelle per ogni card
   document.querySelectorAll('.rating-stars').forEach(function(starsContainer) {
     starsContainer.querySelectorAll('.star').forEach(function(star) {
       star.addEventListener('click', function() {
         const ratingValue = parseInt(this.getAttribute('data-value'));
-        const form = starsContainer.closest('form'); // Trova il form più vicino che contiene le stelle
-        form.querySelector('input[name="rating"]').value = ratingValue; // Aggiorna il campo nascosto del form
+        const form = starsContainer.closest('form');
+        form.querySelector('input[name="rating"]').value = ratingValue;
 
-        updateStars(starsContainer, ratingValue); // Aggiorna solo le stelle nella card corrente
+        updateStars(starsContainer, ratingValue);
       });
     });
   });

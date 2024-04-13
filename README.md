@@ -72,25 +72,25 @@ python manage.py runserver
 ## Screenshots
 
 ### Homepage:
-<img src="screenshots/homepage.png" style="width: 100%;" alt="Homepage"/>
+<img src="screenshots/homepage.png" style="width: 100%;" alt="Homepage" />
 
 ### Results:
-<img src="screenshots/results.png" style="width: 100%;" alt="Results"/>
+<img src="screenshots/results.png" style="width: 100%;" alt="Results" />
 
 ### List of Movies:
-<img src="screenshots/movie_list.png" style="width: 100%;" alt="Movie List"/>
+<img src="screenshots/movie_list.png" style="width: 100%;" alt="Movie List" />
 
 ### List of TV Shows:
-<img src="screenshots/tv_show_list.png" style="width: 100%;" alt="TV Show List"/>
+<img src="screenshots/tv_show_list.png" style="width: 100%;" alt="TV Show List" />
 
 ### Update Media:
-<img src="screenshots/update_media.png" style="width: 100%;" alt="Update Media"/>
+<img src="screenshots/update_media.png" style="width: 100%;" alt="Update Media" />
 
 ### Sign up:
-<img src="screenshots/signup.png" style="width: 100%;" alt="Sign up"/>
+<img src="screenshots/signup.png" style="width: 100%;" alt="Sign up" />
 
 ### Login:
-<img src="screenshots/login.png" style="width: 100%;" alt="Login"/>
+<img src="screenshots/login.png" style="width: 100%;" alt="Login" />
 
 
 ## Future Plans
