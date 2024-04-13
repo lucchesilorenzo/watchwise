@@ -1,8 +1,22 @@
-# WatchWise
+# WatchWise Project Documentation
 
-WatchWise is a full stack project designed for tracking both movies and TV shows. It is developed using Django/Python for the backend and HTML/CSS/Bootstrap/JavaScript for the frontend.
+## Overview
 
-The program aims to assist users in navigating the TMDB (The Movie Database), a very popular public media database. It offers numerous functionalities, including saving TV shows and movies into the database along with preferences and comments, filtering records by name and list type, updating and deleting entries, and much more.
+WatchWise is a full-stack project designed for tracking movies and TV shows. It is developed using Django/Python for the backend and HTML/CSS/Bootstrap/JavaScript for the frontend.
+
+The application aims to assist users in navigating the TMDB (The Movie Database), a very popular public media database. It offers numerous functionalities, including saving TV shows and movies into the database along with preferences and comments, filtering records by name and list type, updating and deleting entries, and much more.
+
+## Features
+
+- **Media Tracking:** Save and manage a list of your favorite movies and TV shows.
+- **User Interactions:** Add comments and personal ratings.
+- **Dynamic Filtering:** Search and filter media based on different criteria.
+
+## Prerequisites
+
+- Python 3.8 or later
+- TMDB API Key
+- Git
 
 ## Project Setup
 
@@ -55,14 +69,38 @@ python manage.py runserver
 
 ### **Step 7**: Go to http://127.0.0.1:8000/watchwise/
 
+## Screenshots
+
+### Homepage:
+<img src="screenshots/homepage.png" style="width: 100%;" alt="Homepage"/>
+
+### Results:
+<img src="screenshots/results.png" style="width: 100%;" alt="Results"/>
+
+### List of Movies:
+<img src="screenshots/movie_list.png" style="width: 100%;" alt="Movie List"/>
+
+### List of TV Shows:
+<img src="screenshots/tv_show_list.png" style="width: 100%;" alt="TV Show List"/>
+
+### Update Media:
+<img src="screenshots/update_media.png" style="width: 100%;" alt="Update Media"/>
+
+### Sign up:
+<img src="screenshots/signup.png" style="width: 100%;" alt="Sign up"/>
+
+### Login:
+<img src="screenshots/login.png" style="width: 100%;" alt="Login"/>
+
+
 ## Future Plans
 
-- Implement authentication and optimize user login/logout functionalities
-- Enhance the front-end experience with a robust framework like React or Angular
+- Implement authentication and optimize user login/logout functionalities.
+- Enhance the front-end experience with a robust framework like React or Angular.
 
 ## References
 
-https://developer.themoviedb.org/reference/intro/getting-started
+[TMDB API Documentation](https://developer.themoviedb.org/reference/intro/getting-started)
 
 ## Team
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Movie, TVShow
+from .models import Movie, TVShow
 
 
 @admin.register(Movie)
@@ -28,9 +28,3 @@ class TVShowAdmin(admin.ModelAdmin):
         'rating',
         'comment',
     )
-
-# Da utilizzare
-@admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'birth_date')
-    list_filter = ('user', 'birth_date')
