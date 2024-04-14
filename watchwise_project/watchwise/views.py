@@ -168,7 +168,7 @@ def paginate_queryset(request, queryset, default_per_page=10):
 # Search for movies by title
 def search_title_movie(request):
     title = request.GET.get('title', '')
-    movies = Movie.objects.filter(title__icontains=title)
+    movies = Movie.objects.filter(user=request.user, title__icontains=title)
     movies = paginate_queryset(request, movies)
     return render(request, 'movie_list.html', {'movies': movies})
 
@@ -176,106 +176,95 @@ def search_title_movie(request):
 # Filter movies by status
 def search_status_movie(request):
     status = request.GET.get('status', '')
-    movies = Movie.objects.filter(status__icontains=status)
+    movies = Movie.objects.filter(user=request.user, status__icontains=status)
     movies = paginate_queryset(request, movies)
     return render(request, 'movie_list.html', {'movies': movies})
-
 
 # Filter movies by rating
 def search_rating_movie(request):
     rating = request.GET.get('rating', '')
     if rating.isdigit():
-        movies = Movie.objects.filter(rating=int(rating))
+        movies = Movie.objects.filter(user=request.user, rating=int(rating))
     else:
-        movies = Movie.objects.all()
+        movies = Movie.objects.filter(user=request.user)
     movies = paginate_queryset(request, movies)
     return render(request, 'movie_list.html', {'movies': movies})
-
 
 # Sort movies by title
 def sort_movies_by_title(request):
     sort_by = request.GET.get('sort_title', 'title') 
-    movies = Movie.objects.all().order_by(sort_by)
+    movies = Movie.objects.filter(user=request.user).order_by(sort_by)
     movies = paginate_queryset(request, movies)
     return render(request, 'movie_list.html', {'movies': movies})
-
 
 # Sort movies by release year
 def sort_movies_by_year(request):
     sort_by = request.GET.get('sort_year', 'release_date')
-    movies = Movie.objects.all().order_by(sort_by)
+    movies = Movie.objects.filter(user=request.user).order_by(sort_by)
     movies = paginate_queryset(request, movies)
     return render(request, 'movie_list.html', {'movies': movies})
-
 
 # Sort movies by rating
 def sort_movies_by_rating(request):
     sort_by = request.GET.get('sort_rating', 'rating')
     if sort_by == 'rating':
-        movies = Movie.objects.annotate(rating_as_float=Cast('rating', FloatField())).order_by('rating_as_float')
+        movies = Movie.objects.filter(user=request.user).annotate(rating_as_float=Cast('rating', FloatField())).order_by('rating_as_float')
     elif sort_by == '-rating':
-        movies = Movie.objects.annotate(rating_as_float=Cast('rating', FloatField())).order_by('-rating_as_float')
+        movies = Movie.objects.filter(user=request.user).annotate(rating_as_float=Cast('rating', FloatField())).order_by('-rating_as_float')
     else:
-        movies = Movie.objects.all()
+        movies = Movie.objects.filter(user=request.user)
     movies = paginate_queryset(request, movies)
     return render(request, 'movie_list.html', {'movies': movies})
-
 
 # Search for TV shows by title
 def search_title_tv(request):
     title = request.GET.get('title', '')
-    tv_shows = TVShow.objects.filter(title__icontains=title)
+    tv_shows = TVShow.objects.filter(user=request.user, title__icontains=title)
     tv_shows = paginate_queryset(request, tv_shows)
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows})
-
 
 # Filter TV shows by status
 def search_status_tv(request):
     status = request.GET.get('status', '')
-    tv_shows = TVShow.objects.filter(status__icontains=status)
+    tv_shows = TVShow.objects.filter(user=request.user, status__icontains=status)
     tv_shows = paginate_queryset(request, tv_shows)
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows})
-
 
 # Filter TV shows by rating
 def search_rating_tv(request):
     rating = request.GET.get('rating', '')
     if rating.isdigit():
-        tv_shows = TVShow.objects.filter(rating=int(rating))
+        tv_shows = TVShow.objects.filter(user=request.user, rating=int(rating))
     else:
-        tv_shows = TVShow.objects.all()
+        tv_shows = TVShow.objects.filter(user=request.user)
     tv_shows = paginate_queryset(request, tv_shows)
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows})
-
 
 # Sort TV shows by title
 def sort_tv_shows_by_title(request):
     sort_by = request.GET.get('sort_title', 'title')
-    tv_shows = TVShow.objects.all().order_by(sort_by)
+    tv_shows = TVShow.objects.filter(user=request.user).order_by(sort_by)
     tv_shows = paginate_queryset(request, tv_shows)
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows})
-
 
 # Sort TV shows by the year they first aired
 def sort_tv_shows_by_year(request):
     sort_by = request.GET.get('sort_year', 'first_air_date')
-    tv_shows = TVShow.objects.all().order_by(sort_by)
+    tv_shows = TVShow.objects.filter(user=request.user).order_by(sort_by)
     tv_shows = paginate_queryset(request, tv_shows)
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows})
-
 
 # Sort TV shows by rating
 def sort_tv_shows_by_rating(request):
     sort_by = request.GET.get('sort_rating', 'rating')
     if sort_by == 'rating':
-        tv_shows = TVShow.objects.annotate(rating_as_float=Cast('rating', FloatField())).order_by('rating_as_float')
+        tv_shows = TVShow.objects.filter(user=request.user).annotate(rating_as_float=Cast('rating', FloatField())).order_by('rating_as_float')
     elif sort_by == '-rating':
-        tv_shows = TVShow.objects.annotate(rating_as_float=Cast('rating', FloatField())).order_by('-rating_as_float')
+        tv_shows = TVShow.objects.filter(user=request.user).annotate(rating_as_float=Cast('rating', FloatField())).order_by('-rating_as_float')
     else:
-        tv_shows = TVShow.objects.all()
+        tv_shows = TVShow.objects.filter(user=request.user)
     tv_shows = paginate_queryset(request, tv_shows)
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows})
-
 
 # Handle user registration using a form
 def signup(request):
