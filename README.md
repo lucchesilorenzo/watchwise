@@ -78,10 +78,10 @@ python manage.py runserver
 <img src="screenshots/results.png" style="width: 100%;" alt="Results" />
 
 ### List of Movies:
-<img src="screenshots/movie_list.png" style="width: 100%;" alt="Movie List" />
+<img src="screenshots/movie_list.png" style="width: 100%;" alt="List of Movies" />
 
 ### List of TV Shows:
-<img src="screenshots/tv_show_list.png" style="width: 100%;" alt="TV Show List" />
+<img src="screenshots/tv_show_list.png" style="width: 100%;" alt="List of TV Shows" />
 
 ### Update Media:
 <img src="screenshots/update_media.png" style="width: 100%;" alt="Update Media" />
@@ -95,7 +95,9 @@ python manage.py runserver
 
 ## Future Plans
 
-- Enhance the front-end experience with a robust framework like React or Angular.
+- Enhance the front-end experience by adopting a robust framework such as React or Angular.
+- Introduce additional API endpoints to display currently popular movies and TV shows.
+- Host the web application on a cloud service.
 
 ## References
 

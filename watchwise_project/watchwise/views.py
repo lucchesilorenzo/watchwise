@@ -11,6 +11,7 @@ import requests
 
 TMDB_API_KEY = "05e5be7a518e07b0cdd93bf0e133083a"
 
+
 # Render the homepage
 def watchwise(request):
     return render(request, 'homepage.html')
@@ -180,6 +181,7 @@ def search_status_movie(request):
     movies = paginate_queryset(request, movies)
     return render(request, 'movie_list.html', {'movies': movies})
 
+
 # Filter movies by rating
 def search_rating_movie(request):
     rating = request.GET.get('rating', '')
@@ -190,6 +192,7 @@ def search_rating_movie(request):
     movies = paginate_queryset(request, movies)
     return render(request, 'movie_list.html', {'movies': movies})
 
+
 # Sort movies by title
 def sort_movies_by_title(request):
     sort_by = request.GET.get('sort_title', 'title') 
@@ -197,12 +200,14 @@ def sort_movies_by_title(request):
     movies = paginate_queryset(request, movies)
     return render(request, 'movie_list.html', {'movies': movies})
 
+
 # Sort movies by release year
 def sort_movies_by_year(request):
     sort_by = request.GET.get('sort_year', 'release_date')
     movies = Movie.objects.filter(user=request.user).order_by(sort_by)
     movies = paginate_queryset(request, movies)
     return render(request, 'movie_list.html', {'movies': movies})
+
 
 # Sort movies by rating
 def sort_movies_by_rating(request):
@@ -216,6 +221,7 @@ def sort_movies_by_rating(request):
     movies = paginate_queryset(request, movies)
     return render(request, 'movie_list.html', {'movies': movies})
 
+
 # Search for TV shows by title
 def search_title_tv(request):
     title = request.GET.get('title', '')
@@ -223,12 +229,14 @@ def search_title_tv(request):
     tv_shows = paginate_queryset(request, tv_shows)
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows})
 
+
 # Filter TV shows by status
 def search_status_tv(request):
     status = request.GET.get('status', '')
     tv_shows = TVShow.objects.filter(user=request.user, status__icontains=status)
     tv_shows = paginate_queryset(request, tv_shows)
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows})
+
 
 # Filter TV shows by rating
 def search_rating_tv(request):
@@ -239,6 +247,7 @@ def search_rating_tv(request):
         tv_shows = TVShow.objects.filter(user=request.user)
     tv_shows = paginate_queryset(request, tv_shows)
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows})
+
 
 # Sort TV shows by title
 def sort_tv_shows_by_title(request):
@@ -254,6 +263,7 @@ def sort_tv_shows_by_year(request):
     tv_shows = paginate_queryset(request, tv_shows)
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows})
 
+
 # Sort TV shows by rating
 def sort_tv_shows_by_rating(request):
     sort_by = request.GET.get('sort_rating', 'rating')
@@ -265,6 +275,7 @@ def sort_tv_shows_by_rating(request):
         tv_shows = TVShow.objects.filter(user=request.user)
     tv_shows = paginate_queryset(request, tv_shows)
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows})
+
 
 # Handle user registration using a form
 def signup(request):
