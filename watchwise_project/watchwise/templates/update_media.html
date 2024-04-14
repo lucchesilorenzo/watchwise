@@ -4,7 +4,9 @@
 
 {% block content %}
 <div class="container my-5">
+
     <h1 class="mb-4">Update Movie</h1>
+    
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
@@ -15,6 +17,7 @@
                 <option value="not_interested" {% if media.status == 'not_interested' %}selected{% endif %}>Not Interested</option>
             </select>
         </div>
+
         <div class="form-group">
             <label for="rating">Rating:</label>
             <select class="form-control" id="rating" name="rating">
@@ -23,10 +26,12 @@
                 {% endfor %}
             </select>
         </div>
+
         <div class="form-group">
             <label for="comment">Comment:</label>
             <textarea class="form-control" id="comment" name="comment">{{ media.comment }}</textarea>
         </div>
+
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </div>

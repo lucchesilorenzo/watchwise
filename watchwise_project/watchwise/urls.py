@@ -13,7 +13,7 @@ urlpatterns = [
     path('update_media/<str:type>/<int:id>', views.update_media, name='update_media'),
     path('signup/', views.signup, name='signup'),
     path('login/', LoginView.as_view(template_name='login.html'), name='login'),
-    path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
+    path('logout/', LogoutView.as_view(next_page='homepage'), name='logout'),
     path('search_title_movie/', views.search_title_movie, name='search_title_movie'),
     path('search_status_movie/', views.search_status_movie, name='search_status_movie'),
     path('search_rating_movie/', views.search_rating_movie, name='search_rating_movie'),

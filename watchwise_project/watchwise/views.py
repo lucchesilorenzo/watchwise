@@ -17,24 +17,24 @@ def watchwise(request):
     
 
 def movie_list(request):
-    movies_list = Movie.objects.all().order_by('movie_id')
+    if not request.user.is_authenticated:
+        return redirect('login')
+    movies_list = Movie.objects.filter(user=request.user).order_by('movie_id')
     per_page = request.GET.get('per_page', '10')  
     page_number = request.GET.get('page', 1)  
-
     paginator = Paginator(movies_list, int(per_page)) 
     movies = paginator.get_page(page_number)
-
     return render(request, 'movie_list.html', {'movies': movies, 'per_page': per_page})
 
 
 def tv_show_list(request):
-    tv_shows_list = TVShow.objects.all().order_by('TV_id')
-    per_page = request.GET.get('per_page', '10') 
-    page_number = request.GET.get('page', 1) 
-
+    if not request.user.is_authenticated:
+        return redirect('login') 
+    tv_shows_list = TVShow.objects.filter(user=request.user).order_by('TV_id') 
+    per_page = request.GET.get('per_page', '10')  
+    page_number = request.GET.get('page', 1)  
     paginator = Paginator(tv_shows_list, int(per_page))  
     tv_shows = paginator.get_page(page_number)
-
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows, 'per_page': per_page})
 
 
@@ -62,13 +62,15 @@ def results(request):
     
         
 def delete_media(request, type, id):
+    if not request.user.is_authenticated:
+        return redirect('login')
     if type == 'movie':
-        movie = get_object_or_404(Movie, movie_id=id)
+        movie = get_object_or_404(Movie, movie_id=id, user=request.user)
         movie.delete()
     elif type == 'tv':
-        tv_show = get_object_or_404(TVShow, TV_id=id)
+        tv_show = get_object_or_404(TVShow, TV_id=id, user=request.user)
         tv_show.delete()
-    messages.success(request, "Deleted Successfully")
+    messages.success(request, "Deleted successfully")
     return redirect(request.META.get('HTTP_REFERER', 'default_if_none'))
 
 
@@ -86,7 +88,7 @@ def update_media(request, id, type):
         media.rating = None if rating == '' else rating
         media.comment = request.POST.get('comment')
         media.save()
-        messages.success(request, "Updated Successfully")
+        messages.success(request, "Updated successfully")
         return redirect('movie_list' if type == 'movie' else 'tv_show_list')
     else:
         return render(request, 'update_media.html', {'media': media})
@@ -94,12 +96,15 @@ def update_media(request, id, type):
 
 def save_media(request):
     if request.method == 'POST':
-        external_id = request.POST.get('external_id') 
+        if not request.user.is_authenticated:
+            return redirect('login')
+
+        external_id = request.POST.get('external_id')
         media_type = request.POST.get('type')
 
-        existing_media = Movie.objects.filter(external_id=external_id) if media_type == 'movie' else TVShow.objects.filter(external_id=external_id)
+        existing_media = Movie.objects.filter(user=request.user, external_id=external_id) if media_type == 'movie' else TVShow.objects.filter(user=request.user, external_id=external_id)
         if existing_media.exists():
-            messages.info(request, "This media is already in the database.")
+            messages.info(request, "This media is already in your library.")
             return redirect(request.META.get('HTTP_REFERER', '/'))
 
         try:
@@ -114,6 +119,7 @@ def save_media(request):
             date = int(date_str) if date_str else None
 
             media_details = {
+                'user': request.user,
                 'external_id': external_id,
                 'title': title,
                 'release_date' if media_type == 'movie' else 'first_air_date': date,
@@ -137,6 +143,7 @@ def save_media(request):
     else:
         messages.error(request, "This method is not allowed.")
         return redirect(request.META.get('HTTP_REFERER', '/'))
+
     
 
 def paginate_queryset(request, queryset, default_per_page=10):

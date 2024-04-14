@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
     
     
 STATUS_CHOICES = [
@@ -10,7 +11,8 @@ STATUS_CHOICES = [
 
 
 class Movie(models.Model):
-    external_id = models.CharField(max_length=100, unique=True, null=True, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='movies', null=True)
+    external_id = models.CharField(max_length=100, null=True, blank=True)
     movie_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200)
     release_date = models.IntegerField(null=True, blank=True)
@@ -20,9 +22,13 @@ class Movie(models.Model):
     rating = models.IntegerField(null=True, blank=True)
     comment = models.TextField(null=True, blank=True)
 
+    class Meta:
+        unique_together = ('user', 'external_id')
+
 
 class TVShow(models.Model):
-    external_id = models.CharField(max_length=100, unique=True, null=True, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='tv_shows', null=True)
+    external_id = models.CharField(max_length=100, null=True, blank=True)
     TV_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200)
     first_air_date = models.IntegerField(null=True, blank=True)
@@ -31,3 +37,6 @@ class TVShow(models.Model):
     status = models.CharField(max_length=14, choices=STATUS_CHOICES, default='empty')
     rating = models.IntegerField(null=True, blank=True)
     comment = models.TextField(null=True, blank=True)
+
+    class Meta:
+        unique_together = ('user', 'external_id')
