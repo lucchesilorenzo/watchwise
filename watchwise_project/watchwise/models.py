@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
     
-    
+# Define status choices for media items
 STATUS_CHOICES = [
     ('empty', 'None'),
     ('watched', 'Watched'),
@@ -22,6 +22,7 @@ class Movie(models.Model):
     rating = models.IntegerField(null=True, blank=True)
     comment = models.TextField(null=True, blank=True)
 
+    # Ensure uniqueness of external_id per user
     class Meta:
         unique_together = ('user', 'external_id')
 
@@ -38,5 +39,6 @@ class TVShow(models.Model):
     rating = models.IntegerField(null=True, blank=True)
     comment = models.TextField(null=True, blank=True)
 
+    # Ensure uniqueness of external_id per user
     class Meta:
         unique_together = ('user', 'external_id')

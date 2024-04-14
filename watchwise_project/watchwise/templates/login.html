@@ -4,17 +4,27 @@
 
 {% block content %}
 <div class="container mt-5">
+    <!-- Title of the page centered at the top -->
     <h1 class="mb-4 text-center">Login</h1>
+
+    <!-- Responsive form container -->
     <div class="row justify-content-center">
         <div class="col-lg-4 col-md-6 col-sm-8">
+            <!-- Form submission to the server via POST -->
             <form method="post" class="form-login">
-                {% csrf_token %}
+                {% csrf_token %}  <!-- Security token to prevent CSRF attacks -->
+
+                <!-- Loop through each form field -->
                 {% for field in form %}
                 <div class="form-group">
-                    {{ field.label_tag }}
+                    {{ field.label_tag }}  <!-- Render the label for the field -->
+
+                    <!-- Render input field with attributes like type, name, and required -->
                     <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}"
                            class="form-control form-control-lg" id="{{ field.id_for_label }}"
                            required {{ field.field.widget.attrs|default_if_none:'' }}>
+
+                    <!-- Display any errors associated with the field -->
                     {% if field.errors %}
                     {% for error in field.errors %}
                     <div class="alert alert-danger">{{ error }}</div>
@@ -22,6 +32,8 @@
                     {% endif %}
                 </div>
                 {% endfor %}
+
+                <!-- Submission button for the form -->
                 <button type="submit" class="btn btn-primary btn-block">Login</button>
             </form>
         </div>

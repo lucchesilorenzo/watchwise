@@ -11,11 +11,12 @@ import requests
 
 TMDB_API_KEY = "05e5be7a518e07b0cdd93bf0e133083a"
 
-
+# Render the homepage
 def watchwise(request):
     return render(request, 'homepage.html')
     
 
+# Display a list of movies specific to the logged-in user
 def movie_list(request):
     if not request.user.is_authenticated:
         return redirect('login')
@@ -27,6 +28,7 @@ def movie_list(request):
     return render(request, 'movie_list.html', {'movies': movies, 'per_page': per_page})
 
 
+# Display a list of TV shows specific to the logged-in user
 def tv_show_list(request):
     if not request.user.is_authenticated:
         return redirect('login') 
@@ -38,7 +40,9 @@ def tv_show_list(request):
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows, 'per_page': per_page})
 
 
+# Handle search queries using the TMDB API
 def results(request):
+    """ Handle search queries using the TMDB API. """
     query = request.GET.get('q')
     if query:
         data = requests.get(f"https://api.themoviedb.org/3/search/{request.GET.get('type')}?api_key={TMDB_API_KEY}&language=en-US&page=1&include_adult=false&query={query}")
@@ -60,7 +64,8 @@ def results(request):
     else:
         return render(request, 'homepage.html', {"show_alert": True})
     
-        
+
+# Allow users to delete their media entries        
 def delete_media(request, type, id):
     if not request.user.is_authenticated:
         return redirect('login')
@@ -74,6 +79,7 @@ def delete_media(request, type, id):
     return redirect(request.META.get('HTTP_REFERER', 'default_if_none'))
 
 
+# Allow users to update status, ratings, and comments on their media entries
 def update_media(request, id, type):
     if type == 'movie':
         media = get_object_or_404(Movie, movie_id=id)
@@ -94,6 +100,7 @@ def update_media(request, id, type):
         return render(request, 'update_media.html', {'media': media})
         
 
+# Allow users to add new media entries
 def save_media(request):
     if request.method == 'POST':
         if not request.user.is_authenticated:
@@ -145,7 +152,7 @@ def save_media(request):
         return redirect(request.META.get('HTTP_REFERER', '/'))
 
     
-
+# Helper function to paginate any queryset based on request parameters
 def paginate_queryset(request, queryset, default_per_page=10):
     per_page = request.GET.get('per_page', '')
     if not per_page.isdigit():
@@ -158,6 +165,7 @@ def paginate_queryset(request, queryset, default_per_page=10):
     return page_obj
 
 
+# Search for movies by title
 def search_title_movie(request):
     title = request.GET.get('title', '')
     movies = Movie.objects.filter(title__icontains=title)
@@ -165,6 +173,7 @@ def search_title_movie(request):
     return render(request, 'movie_list.html', {'movies': movies})
 
 
+# Filter movies by status
 def search_status_movie(request):
     status = request.GET.get('status', '')
     movies = Movie.objects.filter(status__icontains=status)
@@ -172,6 +181,7 @@ def search_status_movie(request):
     return render(request, 'movie_list.html', {'movies': movies})
 
 
+# Filter movies by rating
 def search_rating_movie(request):
     rating = request.GET.get('rating', '')
     if rating.isdigit():
@@ -182,6 +192,7 @@ def search_rating_movie(request):
     return render(request, 'movie_list.html', {'movies': movies})
 
 
+# Sort movies by title
 def sort_movies_by_title(request):
     sort_by = request.GET.get('sort_title', 'title') 
     movies = Movie.objects.all().order_by(sort_by)
@@ -189,6 +200,7 @@ def sort_movies_by_title(request):
     return render(request, 'movie_list.html', {'movies': movies})
 
 
+# Sort movies by release year
 def sort_movies_by_year(request):
     sort_by = request.GET.get('sort_year', 'release_date')
     movies = Movie.objects.all().order_by(sort_by)
@@ -196,6 +208,7 @@ def sort_movies_by_year(request):
     return render(request, 'movie_list.html', {'movies': movies})
 
 
+# Sort movies by rating
 def sort_movies_by_rating(request):
     sort_by = request.GET.get('sort_rating', 'rating')
     if sort_by == 'rating':
@@ -208,6 +221,7 @@ def sort_movies_by_rating(request):
     return render(request, 'movie_list.html', {'movies': movies})
 
 
+# Search for TV shows by title
 def search_title_tv(request):
     title = request.GET.get('title', '')
     tv_shows = TVShow.objects.filter(title__icontains=title)
@@ -215,6 +229,7 @@ def search_title_tv(request):
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows})
 
 
+# Filter TV shows by status
 def search_status_tv(request):
     status = request.GET.get('status', '')
     tv_shows = TVShow.objects.filter(status__icontains=status)
@@ -222,6 +237,7 @@ def search_status_tv(request):
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows})
 
 
+# Filter TV shows by rating
 def search_rating_tv(request):
     rating = request.GET.get('rating', '')
     if rating.isdigit():
@@ -232,6 +248,7 @@ def search_rating_tv(request):
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows})
 
 
+# Sort TV shows by title
 def sort_tv_shows_by_title(request):
     sort_by = request.GET.get('sort_title', 'title')
     tv_shows = TVShow.objects.all().order_by(sort_by)
@@ -239,6 +256,7 @@ def sort_tv_shows_by_title(request):
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows})
 
 
+# Sort TV shows by the year they first aired
 def sort_tv_shows_by_year(request):
     sort_by = request.GET.get('sort_year', 'first_air_date')
     tv_shows = TVShow.objects.all().order_by(sort_by)
@@ -246,6 +264,7 @@ def sort_tv_shows_by_year(request):
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows})
 
 
+# Sort TV shows by rating
 def sort_tv_shows_by_rating(request):
     sort_by = request.GET.get('sort_rating', 'rating')
     if sort_by == 'rating':
@@ -258,6 +277,7 @@ def sort_tv_shows_by_rating(request):
     return render(request, 'tv_show_list.html', {'tv_shows': tv_shows})
 
 
+# Handle user registration using a form
 def signup(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)

@@ -1,176 +1,184 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
-{% block title %}Movies{% endblock %} 
+{% block title %}Movies{% endblock %}
 
 {% block content %}
 <div class="container my-5">
-  {% if messages %}
+    <!-- Display messages if there are any -->
+    {% if messages %}
     <div class="alert alert-success">
-    {% for message in messages %}
-      <strong>{{ message }}</strong>
-    {% endfor %}
-  </div>
-  {% endif %}
-  
-  <h1 class="mb-4">List of Movies</h1>
-<div class="container-fluid bg-light p-4 shadow-sm rounded">
-  <div class="row justify-content-between align-items-center">
-    
-    <div class="col-lg-4">
-      <form method="get" class="form-inline">
-        <label for="per_page" class="mr-2">Records per page:</label>
-        <select name="per_page" id="per_page" onchange="this.form.submit()" class="custom-select mr-sm-2">
-          <option value="10" {% if per_page == "10" %}selected{% endif %}>10</option>
-          <option value="20" {% if per_page == "20" %}selected{% endif %}>20</option>
-          <option value="30" {% if per_page == "30" %}selected{% endif %}>30</option>
-          <option value="50" {% if per_page == "50" %}selected{% endif %}>50</option>
-          <option value="100" {% if per_page == "100" %}selected{% endif %}>100</option>
-        </select>
-        <input type="hidden" name="page" value="{{ movies.number }}">
-      </form>
-    </div>
-    
-    <div class="col-lg-8">
-      <div class="d-flex justify-content-end">
-        <form action="{% url 'search_title_movie' %}" method="get" class="mr-2">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search by title" name="title">
-            <div class="input-group-append">
-              <button class="btn btn-outline-primary" type="submit">
-                <i class="fas fa-search"></i>
-              </button>
-            </div>
-            <input type="hidden" name="page" value="{{ movies.number }}">
-            <input type="hidden" name="per_page" value="{{ per_page }}">
-          </div>
-        </form>
-        
-        <form action="{% url 'search_rating_movie' %}" method="get" class="mr-2">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search by rating" name="rating">
-            <div class="input-group-append">
-              <button class="btn btn-outline-primary" type="submit">
-                <i class="fas fa-search"></i>
-              </button>
-            </div>
-            <input type="hidden" name="page" value="{{ movies.number }}">
-            <input type="hidden" name="per_page" value="{{ per_page }}">
-          </div>
-        </form>
-        
-        <form action="{% url 'search_status_movie' %}" method="get" class="d-flex align-items-center mr-2 flex-grow-1">
-          <select class="custom-select flex-grow-1 mr-2" name="status" onchange="this.form.submit()">
-            <option value="">Status</option>
-            <option value="watched">Watched</option>
-            <option value="watchlist">Watchlist</option>
-            <option value="not_interested">Not Interested</option>
-          </select>
-          <input type="hidden" name="page" value="{{ movies.number }}">
-          <input type="hidden" name="per_page" value="{{ per_page }}">
-        </form>
-        
-        <a href="{% url 'movie_list' %}" class="btn btn-warning">Reset</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-  
-  {% if movies %}
-  <div class="container mt-4">
-    <table class="table table-hover">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col" class="text-center">#</th>
-            <th scope="col">
-                <div class="d-flex justify-content-center align-items-center">
-                    <span class="mr-2">Title</span>
-                    <a href="{% url 'sort_movies_by_title' %}?sort_title=title" class="sort-arrow text-light">&#9650;</a>
-                    <a href="{% url 'sort_movies_by_title' %}?sort_title=-title" class="sort-arrow text-light">&#9660;</a>
-                </div>
-            </th>
-            <th scope="col">
-                <div class="d-flex justify-content-center align-items-center">
-                    <span class="mr-2">Year</span>
-                    <a href="{% url 'sort_movies_by_year' %}?sort_year=release_date" class="sort-arrow text-light">&#9650;</a>
-                    <a href="{% url 'sort_movies_by_year' %}?sort_year=-release_date" class="sort-arrow text-light">&#9660;</a>
-                </div>
-            </th>
-            <th scope="col" class="text-center">Description</th>
-            <th scope="col" class="text-center">Language</th>
-            <th scope="col" class="text-center">Status</th>
-            <th scope="col">
-                <div class="d-flex justify-content-center align-items-center">
-                    <span class="mr-2">Rating</span>
-                    <a href="{% url 'sort_movies_by_rating' %}?sort_rating=rating" class="sort-arrow text-light">&#9650;</a>
-                    <a href="{% url 'sort_movies_by_rating' %}?sort_rating=-rating" class="sort-arrow text-light">&#9660;</a>
-                </div>
-            </th>
-            <th scope="col" class="text-center">Comment</th>
-            <th scope="col" class="text-center">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for movie in movies.object_list %}
-        <tr>
-          <th scope="row">{{ forloop.counter }}</th>
-          <td>{{ movie.title }}</td>
-          <td>{{ movie.release_date }}</td>
-          <td>{{ movie.overview }}</td>
-          <td>{{ movie.original_language }}</td>
-          <td>{{ movie.get_status_display }}</td>
-          <td>{{ movie.rating }}</td>
-          <td>{{ movie.comment }}</td>
-          <td>
-            <a href="{% url 'update_media' 'movie' movie.movie_id %}" class="btn-custom btn-update" role="button"><i class="fas fa-edit"></i> Update</a> 
-            <a href="{% url 'delete_media' 'movie' movie.movie_id %}" class="btn-custom btn-delete" role="button"><i class="fas fa-trash-alt"></i> Delete</a>      
-          </td>
-        </tr>
+        {% for message in messages %}
+        <strong>{{ message }}</strong>
         {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  <div class="mt-4 d-flex justify-content-center">
-    <nav aria-label="Page navigation">
-      <ul class="pagination">
-        {% if movies.has_previous %}
-          <li class="page-item">
-            <a class="page-link" href="?page=1&per_page={{ per_page }}&title={{ request.GET.title|default:'' }}&status={{ request.GET.status|default:'' }}&rating={{ request.GET.rating|default:'' }}" aria-label="First">
-              <span aria-hidden="true">&laquo;&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="?page={{ movies.previous_page_number }}&per_page={{ per_page }}&title={{ request.GET.title|default:'' }}&status={{ request.GET.status|default:'' }}&rating={{ request.GET.rating|default:'' }}" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-        {% endif %}
+    </div>
+    {% endif %}
+  
+    <h1 class="mb-4">List of Movies</h1>
+    <div class="container-fluid bg-light p-4 shadow-sm rounded">
+        <div class="row justify-content-between align-items-center">
+            <!-- Form for selecting number of records per page -->
+            <div class="col-lg-4">
+                <form method="get" class="form-inline">
+                    <label for="per_page" class="mr-2">Records per page:</label>
+                    <select name="per_page" id="per_page" onchange="this.form.submit()" class="custom-select mr-sm-2">
+                        <option value="10" {% if per_page == "10" %}selected{% endif %}>10</option>
+                        <option value="20" {% if per_page == "20" %}selected{% endif %}>20</option>
+                        <option value="30" {% if per_page == "30" %}selected{% endif %}>30</option>
+                        <option value="50" {% if per_page == "50" %}selected{% endif %}>50</option>
+                        <option value="100" {% if per_page == "100" %}selected{% endif %}>100</option>
+                    </select>
+                    <input type="hidden" name="page" value="{{ movies.number }}">
+                </form>
+            </div>
+            
+            <!-- Search and reset functionality -->
+            <div class="col-lg-8">
+                <div class="d-flex justify-content-end">
+                    <!-- Form for searching movies by title -->
+                    <form action="{% url 'search_title_movie' %}" method="get" class="mr-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search by title" name="title">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <input type="hidden" name="page" value="{{ movies.number }}">
+                            <input type="hidden" name="per_page" value="{{ per_page }}">
+                        </div>
+                    </form>
+                    
+                    <!-- Form for searching movies by rating -->
+                    <form action="{% url 'search_rating_movie' %}" method="get" class="mr-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search by rating" name="rating">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <input type="hidden" name="page" value="{{ movies.number }}">
+                            <input type="hidden" name="per_page" value="{{ per_page }}">
+                        </div>
+                    </form>
+                    
+                    <!-- Form for filtering movies by status -->
+                    <form action="{% url 'search_status_movie' %}" method="get" class="d-flex align-items-center mr-2 flex-grow-1">
+                        <select class="custom-select flex-grow-1 mr-2" name="status" onchange="this.form.submit()">
+                            <option value="">Status</option>
+                            <option value="watched">Watched</option>
+                            <option value="watchlist">Watchlist</option>
+                            <option value="not_interested">Not Interested</option>
+                        </select>
+                        <input type="hidden" name="page" value="{{ movies.number }}">
+                        <input type="hidden" name="per_page" value="{{ per_page }}">
+                    </form>
+                    
+                    <!-- Link to reset the filters -->
+                    <a href="{% url 'movie_list' %}" class="btn btn-warning">Reset</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <li class="page-item disabled">
-          <a class="page-link" href="#" tabindex="-1">Page {{ movies.number }} of {{ movies.paginator.num_pages }}</a>
-        </li>
-
-        {% if movies.has_next %}
-          <li class="page-item">
-            <a class="page-link" href="?page={{ movies.next_page_number }}&per_page={{ per_page }}&title={{ request.GET.title|default:'' }}&status={{ request.GET.status|default:'' }}&rating={{ request.GET.rating|default:'' }}" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="?page={{ movies.paginator.num_pages }}&per_page={{ per_page }}&title={{ request.GET.title|default:'' }}&status={{ request.GET.status|default:'' }}&rating={{ request.GET.rating|default:'' }}" aria-label="Last">
-              <span aria-hidden="true">&raquo;&raquo;</span>
-            </a>
-          </li>
-        {% endif %}
-      </ul>
-    </nav>
+    <!-- Table to display movies -->
+    {% if movies %}
+    <div class="container mt-4">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" class="text-center">#</th>
+                    <th scope="col">
+                        <!-- Sorting links for title -->
+                        <div class="d-flex justify-content-center align-items-center">
+                            <span class="mr-2">Title</span>
+                            <a href="{% url 'sort_movies_by_title' %}?sort_title=title" class="sort-arrow text-light">&#9650;</a>
+                            <a href="{% url 'sort_movies_by_title' %}?sort_title=-title" class="sort-arrow text-light">&#9660;</a>
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <!-- Sorting links for year -->
+                        <div class="d-flex justify-content-center align-items-center">
+                            <span class="mr-2">Year</span>
+                            <a href="{% url 'sort_movies_by_year' %}?sort_year=release_date" class="sort-arrow text-light">&#9650;</a>
+                            <a href="{% url 'sort_movies_by_year' %}?sort_year=-release_date" class="sort-arrow text-light">&#9660;</a>
+                        </div>
+                    </th>
+                    <th scope="col" class="text-center">Description</th>
+                    <th scope="col" class="text-center">Language</th>
+                    <th scope="col" class="text-center">Status</th>
+                    <th scope="col">
+                        <!-- Sorting links for rating -->
+                        <div class="d-flex justify-content-center align-items-center">
+                            <span class="mr-2">Rating</span>
+                            <a href="{% url 'sort_movies_by_rating' %}?sort_rating=rating" class="sort-arrow text-light">&#9650;</a>
+                            <a href="{% url 'sort_movies_by_rating' %}?sort_rating=-rating" class="sort-arrow text-light">&#9660;</a>
+                        </div>
+                    </th>
+                    <th scope="col" class="text-center">Comment</th>
+                    <th scope="col" class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for movie in movies.object_list %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ movie.title }}</td>
+                    <td>{{ movie.release_date }}</td>
+                    <td>{{ movie.overview }}</td>
+                    <td>{{ movie.original_language }}</td>
+                    <td>{{ movie.get_status_display }}</td>
+                    <td>{{ movie.rating }}</td>
+                    <td>{{ movie.comment }}</td>
+                    <td>
+                        <!-- Update and delete actions -->
+                        <a href="{% url 'update_media' 'movie' movie.movie_id %}" class="btn-custom btn-update" role="button"><i class="fas fa-edit"></i> Update</a>
+                        <a href="{% url 'delete_media' 'movie' movie.movie_id %}" class="btn-custom btn-delete" role="button"><i class="fas fa-trash-alt"></i> Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-4 d-flex justify-content-center">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <!-- Pagination controls -->
+                {% if movies.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1&per_page={{ per_page }}&title={{ request.GET.title|default:'' }}&status={{ request.GET.status|default:'' }}&rating={{ request.GET.rating|default:'' }}" aria-label="First">
+                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ movies.previous_page_number }}&per_page={{ per_page }}&title={{ request.GET.title|default:'' }}&status={{ request.GET.status|default:'' }}&rating={{ request.GET.rating|default:'' }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Page {{ movies.number }} of {{ movies.paginator.num_pages }}</a>
+                </li>
+                {% if movies.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ movies.next_page_number }}&per_page={{ per_page }}&title={{ request.GET.title|default:'' }}&status={{ request.GET.status|default:'' }}&rating={{ request.GET.rating|default:'' }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ movies.paginator.num_pages }}&per_page={{ per_page }}&title={{ request.GET.title|default:'' }}&status={{ request.GET.status|default:'' }}&rating={{ request.GET.rating|default:'' }}" aria-label="Last">
+                        <span aria-hidden="true">&raquo;&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    {% else %}
+    <div class="text-center mt-5">
+        <i class="fas fa-film fa-3x text-muted"></i>
+        <p class="mt-3 text-muted" style="font-size: 20px;">No records found</p>
+    </div>
+    {% endif %}
 </div>
-
-{% else %}
-<div class="text-center mt-5">
-  <i class="fas fa-film fa-3x text-muted"></i>
-  <p class="mt-3 text-muted" style="font-size: 20px;">No records found</p>
-</div>
-{% endif %}
-
 {% endblock %}

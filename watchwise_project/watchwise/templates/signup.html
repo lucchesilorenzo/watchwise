@@ -4,17 +4,26 @@
 
 {% block content %}
 <div class="container mt-5">
+    <!-- Page title -->
     <h1 class="mb-4 text-center">Sign up</h1>
+
+    <!-- Form container -->
     <div class="row justify-content-center">
         <div class="col-lg-4 col-md-6 col-sm-8">
             <form method="post" class="form-signup">
-                {% csrf_token %}
+                {% csrf_token %}  <!-- CSRF token for security -->
+
+                <!-- Dynamic form fields generated for each field in the form -->
                 {% for field in form %}
                 <div class="form-group">
-                    {{ field.label_tag }}
+                    {{ field.label_tag }} <!-- Automatically generates label tag with appropriate 'for' attribute -->
+
+                    <!-- Input field with dynamic type and attributes -->
                     <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}"
                            class="form-control form-control-lg" id="{{ field.id_for_label }}"
                            required {{ field.field.widget.attrs|default_if_none:'' }}>
+
+                    <!-- Error messages for each field -->
                     {% if field.errors %}
                     {% for error in field.errors %}
                     <div class="alert alert-danger">{{ error }}</div>
@@ -22,6 +31,8 @@
                     {% endif %}
                 </div>
                 {% endfor %}
+
+                <!-- Submit button -->
                 <button type="submit" class="btn btn-primary btn-block">Sign up</button>
             </form>
         </div>

@@ -95,7 +95,6 @@ python manage.py runserver
 
 ## Future Plans
 
-- Implement authentication and optimize user login/logout functionalities.
 - Enhance the front-end experience with a robust framework like React or Angular.
 
 ## References

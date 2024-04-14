@@ -4,34 +4,42 @@
 
 {% block content %}
 <div class="container my-5">
-
+    <!-- Title for the update page -->
     <h1 class="mb-4">Update Movie</h1>
     
+    <!-- Form for updating the movie -->
     <form method="post">
-        {% csrf_token %}
+        {% csrf_token %}  <!-- CSRF token for form security -->
+
+        <!-- Dropdown to select the status of the movie -->
         <div class="form-group">
             <label for="status">Status:</label>
             <select class="form-control" id="status" name="status">
+                <!-- Options for movie status, with current status pre-selected -->
                 <option value="watchlist" {% if media.status == 'watchlist' %}selected{% endif %}>Watchlist</option>
                 <option value="watched" {% if media.status == 'watched' %}selected{% endif %}>Watched</option>
                 <option value="not_interested" {% if media.status == 'not_interested' %}selected{% endif %}>Not Interested</option>
             </select>
         </div>
 
+        <!-- Dropdown to select the rating for the movie -->
         <div class="form-group">
             <label for="rating">Rating:</label>
             <select class="form-control" id="rating" name="rating">
+                <!-- Loop through numbers 1 to 5 for rating options -->
                 {% for i in "12345" %}
                     <option value="{{ i }}" {% if media.rating|stringformat:"s" == i %}selected{% endif %}>{{ i }}</option>
                 {% endfor %}
             </select>
         </div>
 
+        <!-- Textarea for entering comments about the movie -->
         <div class="form-group">
             <label for="comment">Comment:</label>
             <textarea class="form-control" id="comment" name="comment">{{ media.comment }}</textarea>
         </div>
 
+        <!-- Submit button to save changes -->
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </div>
