@@ -43,7 +43,6 @@ def tv_show_list(request):
 
 # Handle search queries using the TMDB API
 def results(request):
-    """ Handle search queries using the TMDB API. """
     query = request.GET.get('q')
     if query:
         data = requests.get(f"https://api.themoviedb.org/3/search/{request.GET.get('type')}?api_key={TMDB_API_KEY}&language=en-US&page=1&include_adult=false&query={query}")
